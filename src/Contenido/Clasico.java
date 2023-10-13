@@ -16,12 +16,12 @@ public class Clasico {
     double valorH;
     String Estado;
 
-    public Clasico(String marca, String modelo, int Fabricacion, double valorH, String Estado) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.Fabricacion = Fabricacion;
-        this.valorH = valorH;
-        this.Estado = Estado;
+    public Clasico() {
+        marca = "";
+        modelo = "";
+        Fabricacion = 0;
+        valorH = 0;
+        Estado = "";
     }
 
     public String getMarca() {

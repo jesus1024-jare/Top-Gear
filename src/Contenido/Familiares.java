@@ -14,10 +14,10 @@ public class Familiares {
     String modelo;
     int capPersonas;
 
-    public Familiares(String marca, String modelo, int capPersonas) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.capPersonas = capPersonas;
+    public Familiares() {
+        marca = "";
+        modelo = "";
+        capPersonas = 0;
     }
 
     public String getMarca() {

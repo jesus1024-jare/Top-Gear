@@ -14,10 +14,10 @@ public class Cliente {
     String apellido;
     int id;
 
-    public Cliente(String nombre, String apellido, int id) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.id = id;
+    public Cliente() {
+        nombre = "";
+        apellido = "";
+        id = 0;
     }
 
     public String getNombre() {

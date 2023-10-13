@@ -15,11 +15,11 @@ public class Deportivo {
     double velocidad_maxima;
     double Taceleracion;
 
-    public Deportivo(String marca, String modelo, double velocidad_maxima, double Taceleracion) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.velocidad_maxima = velocidad_maxima;
-        this.Taceleracion = Taceleracion;
+    public Deportivo() {
+        marca = "";
+        modelo = "";
+        velocidad_maxima = 0;
+        Taceleracion = 0;
     }
 
     public String getMarca() {

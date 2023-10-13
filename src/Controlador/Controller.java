@@ -32,8 +32,9 @@ public class Controller implements ActionListener{
         cc = new Client();
         pri = new Principal();
         mod = (DefaultTableModel)cc.getTablacli().getModel();
+        pri.getDep().addActionListener(this);
     }
-    
+     
     ArrayList<Cliente> datos = new ArrayList();
     DefaultTableModel mod;
     
@@ -52,6 +53,9 @@ public class Controller implements ActionListener{
     
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == pri.getDep()){
+            pri.Panel.setSelectedIndex(2);
+        }
     }
     
 }

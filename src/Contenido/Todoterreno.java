@@ -15,11 +15,11 @@ public class Todoterreno {
     double Achacis;
     double TSuspension;
 
-    public Todoterreno(String marca, String modelo, double Achacis, double TSuspension) {
-        this.marca = marca;
-        this.modelo = modelo;
-        this.Achacis = Achacis;
-        this.TSuspension = TSuspension;
+    public Todoterreno() {
+        marca = "";
+        modelo = "";
+        Achacis = 0;
+        TSuspension = 0;
     }
 
     public String getMarca() {
