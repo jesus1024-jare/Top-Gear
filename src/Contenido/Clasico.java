@@ -13,8 +13,7 @@ public class Clasico {
     String marca;
     String modelo;
     int Fabricacion;
-    ;
-     double valorH;
+    double valorH;
     String Estado;
 
     public Clasico(String marca, String modelo, int Fabricacion, double valorH, String Estado) {
