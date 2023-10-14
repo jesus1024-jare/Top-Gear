@@ -6,6 +6,8 @@ package Ventanas;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -55,9 +57,14 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         Terreneitor = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        Salida = new javax.swing.JMenu();
         Salir = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        agcli = new javax.swing.JMenu();
+        Agregar = new javax.swing.JMenuItem();
+        Gdeport = new javax.swing.JMenuItem();
+        Gclas = new javax.swing.JMenuItem();
+        Gtodo = new javax.swing.JMenuItem();
+        Gfami = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -259,15 +266,31 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, -31, -1, 780));
 
-        jMenu1.setText("Archivo");
+        Salida.setText("Archivo");
 
         Salir.setText("Salir");
-        jMenu1.add(Salir);
+        Salida.add(Salir);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(Salida);
 
-        jMenu2.setText("Registro");
-        jMenuBar1.add(jMenu2);
+        agcli.setText("Registro");
+
+        Agregar.setText("Agregar Cliente");
+        agcli.add(Agregar);
+
+        Gdeport.setText("Agregar A.Deportivo");
+        agcli.add(Gdeport);
+
+        Gclas.setText("Agregar A.Clasico");
+        agcli.add(Gclas);
+
+        Gtodo.setText("Agregar A.TodoTerreno");
+        agcli.add(Gtodo);
+
+        Gfami.setText("Agregar A.Familiar");
+        agcli.add(Gfami);
+
+        jMenuBar1.add(agcli);
 
         jMenu3.setText("Funciones");
         jMenuBar1.add(jMenu3);
@@ -321,21 +344,26 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Agregar;
     private javax.swing.JButton Dep;
+    private javax.swing.JMenuItem Gclas;
+    private javax.swing.JMenuItem Gdeport;
+    private javax.swing.JMenuItem Gfami;
+    private javax.swing.JMenuItem Gtodo;
     private javax.swing.JButton Jclien;
     private javax.swing.JButton Jdep;
     private javax.swing.JButton Jfam;
     private javax.swing.JButton Jtod;
     public javax.swing.JTabbedPane Panel;
+    private javax.swing.JMenu Salida;
     private javax.swing.JMenuItem Salir;
     private javax.swing.JTable Tclasico;
     public javax.swing.JTable Tclientes;
     public javax.swing.JTable Tdeportivo;
     public javax.swing.JTable Terreneitor;
     public javax.swing.JTable Tfamiliar;
+    private javax.swing.JMenu agcli;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -438,7 +466,55 @@ public class Principal extends javax.swing.JFrame {
     public void setJtod(JButton Jtod) {
         this.Jtod = Jtod;
     }
-    
+
+    public JMenu getSalida() {
+        return Salida;
+    }
+
+    public void setSalida(JMenu Salida) {
+        this.Salida = Salida;
+    }
+
+    public JMenuItem getAgregar() {
+        return Agregar;
+    }
+
+    public void setAgregar(JMenuItem Agregar) {
+        this.Agregar = Agregar;
+    }
+
+    public JMenuItem getGclas() {
+        return Gclas;
+    }
+
+    public void setGclas(JMenuItem Gclas) {
+        this.Gclas = Gclas;
+    }
+
+    public JMenuItem getGdeport() {
+        return Gdeport;
+    }
+
+    public void setGdeport(JMenuItem Gdeport) {
+        this.Gdeport = Gdeport;
+    }
+
+    public JMenuItem getGfami() {
+        return Gfami;
+    }
+
+    public void setGfami(JMenuItem Gfami) {
+        this.Gfami = Gfami;
+    }
+
+    public JMenuItem getGtodo() {
+        return Gtodo;
+    }
+
+    public void setGtodo(JMenuItem Gtodo) {
+        this.Gtodo = Gtodo;
+    }
+
     
 
 }
