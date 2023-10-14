@@ -5,6 +5,7 @@
 package Ventanas;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
@@ -32,6 +33,11 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         Dep = new javax.swing.JButton();
+        Jdep = new javax.swing.JButton();
+        Jtod = new javax.swing.JButton();
+        Jfam = new javax.swing.JButton();
+        Jclien = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         Panel = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -48,30 +54,89 @@ public class Principal extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         Terreneitor = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        Salir = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(36, 0, 71));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        Dep.setText("Mostrar 2");
+        Dep.setFont(new java.awt.Font("Cantarell Extra Bold", 0, 18)); // NOI18N
+        Dep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/baby-car_3089803.png"))); // NOI18N
+        Dep.setText("Tabla De A.Clasicos");
+
+        Jdep.setFont(new java.awt.Font("Cantarell Extra Bold", 0, 18)); // NOI18N
+        Jdep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/sport-car_3085330 (2).png"))); // NOI18N
+        Jdep.setText("Tabla De A.Deportivos");
+        Jdep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JdepActionPerformed(evt);
+            }
+        });
+
+        Jtod.setFont(new java.awt.Font("Cantarell Extra Bold", 0, 18)); // NOI18N
+        Jtod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/electric-car_5347678 (1).png"))); // NOI18N
+        Jtod.setText("Tabla De A.TodoTerreno");
+
+        Jfam.setFont(new java.awt.Font("Cantarell Extra Bold", 0, 18)); // NOI18N
+        Jfam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/car_6750484 (1).png"))); // NOI18N
+        Jfam.setText("Tabla De A.Familiar");
+
+        Jclien.setFont(new java.awt.Font("Cantarell Extra Bold", 0, 18)); // NOI18N
+        Jclien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/profile_3135768.png"))); // NOI18N
+        Jclien.setText("Tabla De Clientes");
+        Jclien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JclienActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Cantarell Extra Bold", 3, 24)); // NOI18N
+        jLabel1.setText("Top Gear");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(Dep, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Jfam, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Jtod)
+                    .addComponent(Dep, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Jdep, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(162, 162, 162)
+                            .addComponent(jLabel1))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGap(52, 52, 52)
+                            .addComponent(Jclien, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(275, 275, 275)
-                .addComponent(Dep, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(128, 128, 128)
+                .addComponent(Jclien)
+                .addGap(33, 33, 33)
+                .addComponent(Jdep)
+                .addGap(34, 34, 34)
+                .addComponent(Dep)
+                .addGap(31, 31, 31)
+                .addComponent(Jtod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addComponent(Jfam)
+                .addGap(85, 85, 85))
         );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -1, 440, 750));
 
         Panel.setBackground(new java.awt.Color(215, 225, 245));
 
@@ -93,7 +158,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
         );
 
         Panel.addTab("tab1", jPanel1);
@@ -116,7 +181,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
         );
 
         Panel.addTab("tab2", jPanel3);
@@ -139,7 +204,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
         );
 
         Panel.addTab("tab3", jPanel4);
@@ -162,7 +227,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
         );
 
         Panel.addTab("tab4", jPanel5);
@@ -185,28 +250,40 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         Panel.addTab("tab5", jPanel6);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Panel))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Panel, javax.swing.GroupLayout.PREFERRED_SIZE, 713, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, -31, -1, 780));
+
+        jMenu1.setText("Archivo");
+
+        Salir.setText("Salir");
+        jMenu1.add(Salir);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Registro");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Funciones");
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JdepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JdepActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JdepActionPerformed
+
+    private void JclienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JclienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_JclienActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,12 +322,22 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Dep;
+    private javax.swing.JButton Jclien;
+    private javax.swing.JButton Jdep;
+    private javax.swing.JButton Jfam;
+    private javax.swing.JButton Jtod;
     public javax.swing.JTabbedPane Panel;
+    private javax.swing.JMenuItem Salir;
     private javax.swing.JTable Tclasico;
-    private javax.swing.JTable Tclientes;
-    private javax.swing.JTable Tdeportivo;
-    private javax.swing.JTable Terreneitor;
-    private javax.swing.JTable Tfamiliar;
+    public javax.swing.JTable Tclientes;
+    public javax.swing.JTable Tdeportivo;
+    public javax.swing.JTable Terreneitor;
+    public javax.swing.JTable Tfamiliar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -319,6 +406,39 @@ public class Principal extends javax.swing.JFrame {
     public void setDep(JButton Dep) {
         this.Dep = Dep;
     }
+
+    public JButton getJclien() {
+        return Jclien;
+    }
+
+    public void setJclien(JButton Jclien) {
+        this.Jclien = Jclien;
+    }
+
+    public JButton getJdep() {
+        return Jdep;
+    }
+
+    public void setJdep(JButton Jdep) {
+        this.Jdep = Jdep;
+    }
+
+    public JButton getJfam() {
+        return Jfam;
+    }
+
+    public void setJfam(JButton Jfam) {
+        this.Jfam = Jfam;
+    }
+
+    public JButton getJtod() {
+        return Jtod;
+    }
+
+    public void setJtod(JButton Jtod) {
+        this.Jtod = Jtod;
+    }
+    
     
 
 }

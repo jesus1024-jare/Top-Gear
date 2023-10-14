@@ -22,17 +22,23 @@ public class Controller implements ActionListener{
     Familiares fami;
     Principal pri;
     Cliente cli;
-    Client cc;
     public Controller(Clasico c, Deportivo de, Todoterreno to, Familiares fam, Cliente cl) {
         cla = c;
         cli = cl;
         dep = de;
         todo = to;
         fami = fam;
-        cc = new Client();
         pri = new Principal();
-        mod = (DefaultTableModel)cc.getTablacli().getModel();
+        mod = (DefaultTableModel)pri.getTclientes().getModel();
+        mod = (DefaultTableModel)pri.getTdeportivo().getModel();
+        mod = (DefaultTableModel)pri.getTclasico().getModel();
+        mod = (DefaultTableModel)pri.getTerreneitor().getModel();
+        mod = (DefaultTableModel)pri.getTfamiliar().getModel();
         pri.getDep().addActionListener(this);
+        pri.getJdep().addActionListener(this);
+        pri.getJfam().addActionListener(this);
+        pri.getJclien().addActionListener(this);
+        pri.getJtod().addActionListener(this);
     }
      
     ArrayList<Cliente> datos = new ArrayList();
@@ -41,6 +47,7 @@ public class Controller implements ActionListener{
     public void run(){
         pri.setVisible(true);
         pri.setLocationRelativeTo(null);
+        botonTransparente();
     }
     public void llenar(Cliente p){
         datos.add(p);
@@ -55,7 +62,34 @@ public class Controller implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == pri.getDep()){
             pri.Panel.setSelectedIndex(2);
+        }if(e.getSource() == pri.getJdep()){
+            pri.Panel.setSelectedIndex(1);
+        }if(e.getSource() == pri.getJclien()){
+            pri.Panel.setSelectedIndex(0);
+        }if(e.getSource() == pri.getJtod()){
+            pri.Panel.setSelectedIndex(4);
+        }if(e.getSource() == pri.getJfam()){
+            pri.Panel.setSelectedIndex(3);
         }
+    }
+    
+    public void botonTransparente(){
+        pri.getJclien().setOpaque(false);
+        pri.getJclien().setContentAreaFilled(false);
+        pri.getJclien().setBorderPainted(false);
+        pri.getJdep().setOpaque(false);
+        pri.getJdep().setContentAreaFilled(false);
+        pri.getJdep().setBorderPainted(false);
+        pri.getJfam().setOpaque(false);
+        pri.getJfam().setContentAreaFilled(false);
+        pri.getJfam().setBorderPainted(false);
+        pri.getJtod().setOpaque(false);
+        pri.getJtod().setContentAreaFilled(false);
+        pri.getJtod().setBorderPainted(false);
+        pri.getDep().setOpaque(false);
+        pri.getDep().setContentAreaFilled(false);
+        pri.getDep().setBorderPainted(false);
+        
     }
     
 }
