@@ -66,6 +66,7 @@ public class Principal extends javax.swing.JFrame {
         Gtodo = new javax.swing.JMenuItem();
         Gfami = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
+        Alqui = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -152,7 +153,7 @@ public class Principal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Identificacion"
+                "Nombre", "Apellido", "Identificacion", "M.Auto Alquilado", "Modelo"
             }
         ));
         jScrollPane1.setViewportView(Tclientes);
@@ -293,6 +294,10 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(agcli);
 
         jMenu3.setText("Funciones");
+
+        Alqui.setText("Alquiler");
+        jMenu3.add(Alqui);
+
         jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
@@ -345,6 +350,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Agregar;
+    private javax.swing.JMenuItem Alqui;
     private javax.swing.JButton Dep;
     private javax.swing.JMenuItem Gclas;
     private javax.swing.JMenuItem Gdeport;
@@ -513,6 +519,22 @@ public class Principal extends javax.swing.JFrame {
 
     public void setGtodo(JMenuItem Gtodo) {
         this.Gtodo = Gtodo;
+    }
+
+    public JMenuItem getAlqui() {
+        return Alqui;
+    }
+
+    public void setAlqui(JMenuItem Alqui) {
+        this.Alqui = Alqui;
+    }
+
+    public JMenuItem getSalir() {
+        return Salir;
+    }
+
+    public void setSalir(JMenuItem Salir) {
+        this.Salir = Salir;
     }
 
     

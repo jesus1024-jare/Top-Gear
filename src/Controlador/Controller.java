@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import Contenido.*;
 import Ventanas.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -67,6 +68,7 @@ public class Controller implements ActionListener {
         clas.getCancelar().addActionListener(this);
         tr.getGuardar().addActionListener(this);
         tr.getCancelar().addActionListener(this);
+        pri.getAlqui().addActionListener(this);
     }
 
     ArrayList<Cliente> datos = new ArrayList();
@@ -107,8 +109,8 @@ public class Controller implements ActionListener {
         casic.add(c);
     }
 
-    public void mostrar(String nom, String ape, int d) {
-        mod.addRow(new Object[]{nom, ape, d});
+    public void mostrar(String nom, String ape, int d, String a, String b, int Di) {
+        mod.addRow(new Object[]{nom, ape, d, a, b, Di});
     }
 
     public void mostrard(String ma, String mo, double p, double n) {
@@ -144,7 +146,7 @@ public class Controller implements ActionListener {
             if (e.getSource() == pri.getJfam()) {
                 pri.Panel.setSelectedIndex(3);
             }
-            if (e.getSource() == pri.getSalida()) {
+            if (e.getSource() == pri.getSalir()) {
                 System.exit(0);
             }
             if (e.getSource() == pri.getAgregar()) {
@@ -155,8 +157,33 @@ public class Controller implements ActionListener {
                 cli.setNombre(clientd.getJnom().getText());
                 cli.setApellido(clientd.getJapelli().getText());
                 cli.setId(Integer.parseInt(clientd.getJide().getText()));
-                llenar(cli);
-                mostrar(cli.getNombre(), cli.getApellido(), cli.getId());
+                cli.setMar(clientd.getAlqui().getText());
+                cli.setMode(clientd.getModelo().getText());
+                cli.setDia(Integer.parseInt(clientd.getDias().getText()));
+                if (cli.getMar().equalsIgnoreCase(dep.getMarca()) || cli.getMode().equalsIgnoreCase(dep.getModelo())) {
+                    llenar(cli);
+                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Datos Invalidos");
+                }
+                if (cli.getMar().equalsIgnoreCase(cla.getMarca()) || cli.getMode().equalsIgnoreCase(cla.getModelo())) {
+                    llenar(cli);
+                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Datos Invalidos");
+                }
+                if (cli.getMar().equalsIgnoreCase(fami.getMarca()) || cli.getMode().equalsIgnoreCase(fami.getModelo())) {
+                    llenar(cli);
+                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Datos Invalidos");
+                }
+                if (cli.getMar().equalsIgnoreCase(todo.getMarca()) || cli.getMode().equalsIgnoreCase(todo.getModelo())) {
+                    llenar(cli);
+                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Datos Invalidos");
+                }
             }
             if (e.getSource() == clientd.getCancelarr()) {
                 clientd.dispose();
@@ -205,18 +232,23 @@ public class Controller implements ActionListener {
             }
             if (e.getSource() == clas.getCancelar()) {
                 clas.dispose();
-            }if(e.getSource() == pri.getGtodo()){
+            }
+            if (e.getSource() == pri.getGtodo()) {
                 tr.setVisible(true);
                 tr.setLocationRelativeTo(null);
-            }if(e.getSource() == tr.getGuardar()){
+            }
+            if (e.getSource() == tr.getGuardar()) {
                 todo.setMarca(tr.getMarca().getText());
                 todo.setModelo(tr.getModelo().getText());
                 todo.setAchacis(Double.parseDouble(tr.getAncho().getText()));
                 todo.setTSuspension(Double.parseDouble(tr.getAlto().getText()));
                 llenart(todo);
                 mostrart(todo.getMarca(), todo.getModelo(), todo.getAchacis(), todo.getTSuspension());
-            }if(e.getSource() == tr.getCancelar()){
+            }
+            if (e.getSource() == tr.getCancelar()) {
                 tr.dispose();
+            }
+            if (e.getSource() == pri.getAlqui()) {
             }
         }
     }
