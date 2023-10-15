@@ -13,11 +13,21 @@ public class Familiares {
     String marca;
     String modelo;
     int capPersonas;
+    String estado;
 
     public Familiares() {
         marca = "";
         modelo = "";
         capPersonas = 0;
+        estado = "";
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getMarca() {

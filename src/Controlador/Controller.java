@@ -117,8 +117,8 @@ public class Controller implements ActionListener {
         moddep.addRow(new Object[]{ma, mo, p, n, e});
     }
 
-    public void mostrarf(String ma, String mo, int p) {
-        modfami.addRow(new Object[]{ma, mo, p});
+    public void mostrarf(String ma, String mo, int p, String s) {
+        modfami.addRow(new Object[]{ma, mo, p, s});
     }
 
     public void mostrart(String ma, String mo, double c, double s) {
@@ -163,7 +163,7 @@ public class Controller implements ActionListener {
                 if (cli.getMar().equalsIgnoreCase(dep.getMarca()) || cli.getMode().equalsIgnoreCase(dep.getModelo())) {
                     llenar(cli);
                     mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
-                    // Cambiar el estado del vehículo a "En uso"
+                    // Cambiar el estado del vehículo deportivo a "En uso"
                     dep.setEstado("En uso");
 
                     // Buscar el auto deportivo correspondiente en la lista y actualizar su estado
@@ -179,25 +179,79 @@ public class Controller implements ActionListener {
                     int rowIndexToUpdate = encontrarFilaEnTabla(moddep, dep.getMarca(), dep.getModelo());
                     if (rowIndexToUpdate != -1) {
                         moddep.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
+                        moddep.fireTableDataChanged(); // Notifica al modelo de datos que se ha realizado un cambio
                     }
-
-                    // Notifica al modelo de datos que se ha realizado un cambio
-                    moddep.fireTableDataChanged();
                 }
+
                 if (cli.getMar().equalsIgnoreCase(cla.getMarca()) || cli.getMode().equalsIgnoreCase(cla.getModelo())) {
                     llenar(cli);
                     mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                    // Cambiar el estado del vehículo clásico a "En uso"
+                    cla.setEstado("En uso");
+
+                    // Buscar el auto clásico correspondiente en la lista y actualizar su estado
+                    for (Clasico clasico : casic) {
+                        if (clasico.getMarca().equalsIgnoreCase(cla.getMarca()) && clasico.getModelo().equalsIgnoreCase(cla.getModelo())) {
+                            clasico.setEstado("En uso");
+                            break; // Una vez encontrado y actualizado, puedes salir del bucle
+                        }
+                    }
+                    // Ahora actualiza la tabla de autos clásicos
+                    DefaultTableModel modcla = (DefaultTableModel) pri.getTclasico().getModel();
+                    // Puedes reemplazar la fila existente en la tabla en lugar de agregar una nueva fila
+                    int rowIndexToUpdate = encontrarFilaEnTabla(modcla, cla.getMarca(), cla.getModelo());
+                    if (rowIndexToUpdate != -1) {
+                        modcla.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
+                        modcla.fireTableDataChanged(); // Notifica al modelo de datos que se ha realizado un cambio
+                    }
                 }
+
                 if (cli.getMar().equalsIgnoreCase(fami.getMarca()) || cli.getMode().equalsIgnoreCase(fami.getModelo())) {
                     llenar(cli);
                     mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                    // Cambiar el estado del vehículo familiar a "En uso"
+                    fami.setEstado("En uso");
+
+                    // Buscar el auto familiar correspondiente en la lista y actualizar su estado
+                    for (Familiares familiar : fam) {
+                        if (familiar.getMarca().equalsIgnoreCase(fami.getMarca()) && familiar.getModelo().equalsIgnoreCase(fami.getModelo())) {
+                            familiar.setEstado("En uso");
+                            break; // Una vez encontrado y actualizado, puedes salir del bucle
+                        }
+                    }
+                    // Ahora actualiza la tabla de autos familiares
+                    DefaultTableModel modfami = (DefaultTableModel) pri.getTfamiliar().getModel();
+                    // Puedes reemplazar la fila existente en la tabla en lugar de agregar una nueva fila
+                    int rowIndexToUpdate = encontrarFilaEnTabla(modfami, fami.getMarca(), fami.getModelo());
+                    if (rowIndexToUpdate != -1) {
+                        modfami.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
+                        modfami.fireTableDataChanged(); // Notifica al modelo de datos que se ha realizado un cambio
+                    }
                 }
+
                 if (cli.getMar().equalsIgnoreCase(todo.getMarca()) || cli.getMode().equalsIgnoreCase(todo.getModelo())) {
                     llenar(cli);
                     mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Datos Invalidos");
+                    // Cambiar el estado del vehículo todoterreno a "En uso"
+                    todo.setEstado("En uso");
+
+                    // Buscar el auto todoterreno correspondiente en la lista y actualizar su estado
+                    for (Todoterreno tod : tere) {
+                        if (tod.getMarca().equalsIgnoreCase(todo.getMarca()) && tod.getModelo().equalsIgnoreCase(todo.getModelo())) {
+                            tod.setEstado("En uso");
+                            break; // Una vez encontrado y actualizado, puedes salir del bucle
+                        }
+                    }
+                    // Ahora actualiza la tabla de autos todoterreno
+                    DefaultTableModel modterre = (DefaultTableModel) pri.getTerreneitor().getModel();
+                    // Puedes reemplazar la fila existente en la tabla en lugar de agregar una nueva fila
+                    int rowIndexToUpdate = encontrarFilaEnTabla(modterre, todo.getMarca(), todo.getModelo());
+                    if (rowIndexToUpdate != -1) {
+                        modterre.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
+                        modterre.fireTableDataChanged(); // Notifica al modelo de datos que se ha realizado un cambio
+                    }
                 }
+
             }
             if (e.getSource() == clientd.getCancelarr()) {
                 clientd.dispose();
@@ -226,7 +280,7 @@ public class Controller implements ActionListener {
                 fami.setModelo(f.getModelo().getText());
                 fami.setCapPersonas(Integer.parseInt(f.getCapacidad().getText()));
                 llenarf(fami);
-                mostrarf(fami.getMarca(), fami.getModelo(), fami.getCapPersonas());
+                mostrarf(fami.getMarca(), fami.getModelo(), fami.getCapPersonas(), fami.getEstado());
             }
             if (e.getSource() == f.getCancelar()) {
                 f.dispose();
@@ -240,7 +294,6 @@ public class Controller implements ActionListener {
                 cla.setModelo(clas.getModelo().getText());
                 cla.setFabricacion(Integer.parseInt(clas.getAño().getText()));
                 cla.setValorH(Double.parseDouble(clas.getValorH().getText()));
-                cla.setEstado(clas.getEstado().getText());
                 llenarc(cla);
                 mostrarc(cla.getMarca(), cla.getModelo(), cla.getFabricacion(), cla.getValorH(), cla.getEstado());
             }
@@ -314,17 +367,18 @@ public class Controller implements ActionListener {
         tr.getCancelar().setContentAreaFilled(false);
         tr.getCancelar().setBorderPainted(false);
     }
+
     private int encontrarFilaEnTabla(DefaultTableModel model, String marca, String modelo) {
-    for (int row = 0; row < model.getRowCount(); row++) {
-        String marcaEnTabla = (String) model.getValueAt(row, 0); // 0 es el índice de la columna de marca
-        String modeloEnTabla = (String) model.getValueAt(row, 1); // 1 es el índice de la columna de modelo
+        for (int row = 0; row < model.getRowCount(); row++) {
+            String marcaEnTabla = (String) model.getValueAt(row, 0); // 0 es el índice de la columna de marca
+            String modeloEnTabla = (String) model.getValueAt(row, 1); // 1 es el índice de la columna de modelo
 
-        if (marcaEnTabla.equalsIgnoreCase(marca) && modeloEnTabla.equalsIgnoreCase(modelo)) {
-            return row; // Se encontró una coincidencia, devuelve el índice de la fila
+            if (marcaEnTabla.equalsIgnoreCase(marca) && modeloEnTabla.equalsIgnoreCase(modelo)) {
+                return row; // Se encontró una coincidencia, devuelve el índice de la fila
+            }
         }
-    }
 
-    return -1; // No se encontró ninguna coincidencia
-}
+        return -1; // No se encontró ninguna coincidencia
+    }
 
 }

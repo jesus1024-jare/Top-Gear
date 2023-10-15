@@ -14,12 +14,22 @@ public class Todoterreno {
     String modelo;
     double Achacis;
     double TSuspension;
+    String estado;
 
     public Todoterreno() {
         marca = "";
         modelo = "";
         Achacis = 0;
         TSuspension = 0;
+        estado = "";
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getMarca() {
