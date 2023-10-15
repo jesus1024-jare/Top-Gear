@@ -176,7 +176,7 @@ public class Principal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Marca", "Modelo", "Velocidad Maxima", "Tiempo De Acceleracion"
+                "Marca", "Modelo", "Velocidad Maxima", "Tiempo De Acceleracion", "Estado"
             }
         ));
         jScrollPane2.setViewportView(Tdeportivo);
@@ -222,7 +222,7 @@ public class Principal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Marca", "Modelo", "Capacidad De Personas"
+                "Marca", "Modelo", "Capacidad De Personas", "Estado"
             }
         ));
         jScrollPane4.setViewportView(Tfamiliar);
@@ -245,7 +245,7 @@ public class Principal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Marca", "Modelo", "Ancho Del Chacis", "Tamaño De La Suspension"
+                "Marca", "Modelo", "Ancho Del Chacis", "Tamaño De La Suspension", "Estado"
             }
         ));
         jScrollPane5.setViewportView(Terreneitor);

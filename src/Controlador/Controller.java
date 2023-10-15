@@ -113,8 +113,8 @@ public class Controller implements ActionListener {
         mod.addRow(new Object[]{nom, ape, d, a, b, Di});
     }
 
-    public void mostrard(String ma, String mo, double p, double n) {
-        moddep.addRow(new Object[]{ma, mo, p, n});
+    public void mostrard(String ma, String mo, double p, double n, String e) {
+        moddep.addRow(new Object[]{ma, mo, p, n, e});
     }
 
     public void mostrarf(String ma, String mo, int p) {
@@ -163,20 +163,34 @@ public class Controller implements ActionListener {
                 if (cli.getMar().equalsIgnoreCase(dep.getMarca()) || cli.getMode().equalsIgnoreCase(dep.getModelo())) {
                     llenar(cli);
                     mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Datos Invalidos");
+                    // Cambiar el estado del vehículo a "En uso"
+                    dep.setEstado("En uso");
+
+                    // Buscar el auto deportivo correspondiente en la lista y actualizar su estado
+                    for (Deportivo deportivo : depor) {
+                        if (deportivo.getMarca().equalsIgnoreCase(dep.getMarca()) && deportivo.getModelo().equalsIgnoreCase(dep.getModelo())) {
+                            deportivo.setEstado("En uso");
+                            break; // Una vez encontrado y actualizado, puedes salir del bucle
+                        }
+                    }
+                    // Ahora actualiza la tabla de autos deportivos
+                    DefaultTableModel moddep = (DefaultTableModel) pri.getTdeportivo().getModel();
+                    // Puedes reemplazar la fila existente en la tabla en lugar de agregar una nueva fila
+                    int rowIndexToUpdate = encontrarFilaEnTabla(moddep, dep.getMarca(), dep.getModelo());
+                    if (rowIndexToUpdate != -1) {
+                        moddep.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
+                    }
+
+                    // Notifica al modelo de datos que se ha realizado un cambio
+                    moddep.fireTableDataChanged();
                 }
                 if (cli.getMar().equalsIgnoreCase(cla.getMarca()) || cli.getMode().equalsIgnoreCase(cla.getModelo())) {
                     llenar(cli);
                     mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Datos Invalidos");
                 }
                 if (cli.getMar().equalsIgnoreCase(fami.getMarca()) || cli.getMode().equalsIgnoreCase(fami.getModelo())) {
                     llenar(cli);
                     mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
-                } else {
-                    JOptionPane.showMessageDialog(null, "Datos Invalidos");
                 }
                 if (cli.getMar().equalsIgnoreCase(todo.getMarca()) || cli.getMode().equalsIgnoreCase(todo.getModelo())) {
                     llenar(cli);
@@ -198,7 +212,7 @@ public class Controller implements ActionListener {
                 dep.setTaceleracion(Double.parseDouble(deport.getJtemp().getText()));
                 dep.setVelocidad_maxima(Double.parseDouble(deport.getJvelo().getText()));
                 llenard(dep);
-                mostrard(dep.getMarca(), dep.getModelo(), dep.getVelocidad_maxima(), dep.getTaceleracion());
+                mostrard(dep.getMarca(), dep.getModelo(), dep.getVelocidad_maxima(), dep.getTaceleracion(), dep.getEstado());
             }
             if (e.getSource() == deport.getCancelar()) {
                 deport.dispose();
@@ -300,5 +314,17 @@ public class Controller implements ActionListener {
         tr.getCancelar().setContentAreaFilled(false);
         tr.getCancelar().setBorderPainted(false);
     }
+    private int encontrarFilaEnTabla(DefaultTableModel model, String marca, String modelo) {
+    for (int row = 0; row < model.getRowCount(); row++) {
+        String marcaEnTabla = (String) model.getValueAt(row, 0); // 0 es el índice de la columna de marca
+        String modeloEnTabla = (String) model.getValueAt(row, 1); // 1 es el índice de la columna de modelo
+
+        if (marcaEnTabla.equalsIgnoreCase(marca) && modeloEnTabla.equalsIgnoreCase(modelo)) {
+            return row; // Se encontró una coincidencia, devuelve el índice de la fila
+        }
+    }
+
+    return -1; // No se encontró ninguna coincidencia
+}
 
 }

@@ -14,14 +14,24 @@ public class Deportivo {
     String modelo;
     double velocidad_maxima;
     double Taceleracion;
+    String estado;
 
     public Deportivo() {
         marca = "";
         modelo = "";
         velocidad_maxima = 0;
         Taceleracion = 0;
+        estado = "";
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
     public String getMarca() {
         return marca;
     }
