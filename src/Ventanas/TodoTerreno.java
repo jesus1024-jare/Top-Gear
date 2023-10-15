@@ -4,6 +4,9 @@
  */
 package Ventanas;
 
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
 /**
  *
  * @author ingerioj
@@ -27,24 +30,24 @@ public class TodoTerreno extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Guardar = new javax.swing.JButton();
         Cancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        Modelo = new javax.swing.JTextField();
+        Marca = new javax.swing.JTextField();
+        Ancho = new javax.swing.JTextField();
+        Alto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/electric-car_5347678 (1).png"))); // NOI18N
         jLabel1.setText("Registro De A.TodoTerreno");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icons8-guardar-64.png"))); // NOI18N
-        jButton1.setText("Guardar");
+        Guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icons8-guardar-64.png"))); // NOI18N
+        Guardar.setText("Guardar");
 
         Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/icons8-cancelar-48.png"))); // NOI18N
         Cancelar.setText("Cancelar");
@@ -64,7 +67,7 @@ public class TodoTerreno extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(189, 189, 189)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
+                    .addComponent(Guardar)
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(Cancelar)
@@ -75,19 +78,19 @@ public class TodoTerreno extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(31, 31, 31)
-                        .addComponent(jTextField3))
+                        .addComponent(Ancho))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(32, 32, 32)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
+                        .addComponent(Alto, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))))
+                            .addComponent(Modelo)
+                            .addComponent(Marca, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -98,22 +101,22 @@ public class TodoTerreno extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Ancho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Alto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(Guardar)
                     .addComponent(Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
@@ -157,16 +160,64 @@ public class TodoTerreno extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Alto;
+    private javax.swing.JTextField Ancho;
     private javax.swing.JButton Cancelar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Guardar;
+    private javax.swing.JTextField Marca;
+    private javax.swing.JTextField Modelo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
+
+    public JTextField getAlto() {
+        return Alto;
+    }
+
+    public void setAlto(JTextField Alto) {
+        this.Alto = Alto;
+    }
+
+    public JTextField getAncho() {
+        return Ancho;
+    }
+
+    public void setAncho(JTextField Ancho) {
+        this.Ancho = Ancho;
+    }
+
+    public JButton getCancelar() {
+        return Cancelar;
+    }
+
+    public void setCancelar(JButton Cancelar) {
+        this.Cancelar = Cancelar;
+    }
+
+    public JButton getGuardar() {
+        return Guardar;
+    }
+
+    public void setGuardar(JButton Guardar) {
+        this.Guardar = Guardar;
+    }
+
+    public JTextField getMarca() {
+        return Marca;
+    }
+
+    public void setMarca(JTextField Marca) {
+        this.Marca = Marca;
+    }
+
+    public JTextField getModelo() {
+        return Modelo;
+    }
+
+    public void setModelo(JTextField Modelo) {
+        this.Modelo = Modelo;
+    }
 }

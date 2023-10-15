@@ -27,6 +27,7 @@ public class Controller implements ActionListener {
     Deport deport;
     Familiar f;
     Clasicos clas;
+    TodoTerreno tr;
 
     public Controller(Clasico c, Deportivo de, Todoterreno to, Familiares fam, Cliente cl) {
         cla = c;
@@ -39,6 +40,7 @@ public class Controller implements ActionListener {
         clientd = new Client();
         deport = new Deport();
         clas = new Clasicos();
+        tr = new TodoTerreno();
         mod = (DefaultTableModel) pri.getTclientes().getModel();
         moddep = (DefaultTableModel) pri.getTdeportivo().getModel();
         modcla = (DefaultTableModel) pri.getTclasico().getModel();
@@ -63,6 +65,8 @@ public class Controller implements ActionListener {
         f.getGuardar().addActionListener(this);
         clas.getGuardar().addActionListener(this);
         clas.getCancelar().addActionListener(this);
+        tr.getGuardar().addActionListener(this);
+        tr.getCancelar().addActionListener(this);
     }
 
     ArrayList<Cliente> datos = new ArrayList();
@@ -201,6 +205,18 @@ public class Controller implements ActionListener {
             }
             if (e.getSource() == clas.getCancelar()) {
                 clas.dispose();
+            }if(e.getSource() == pri.getGtodo()){
+                tr.setVisible(true);
+                tr.setLocationRelativeTo(null);
+            }if(e.getSource() == tr.getGuardar()){
+                todo.setMarca(tr.getMarca().getText());
+                todo.setModelo(tr.getModelo().getText());
+                todo.setAchacis(Double.parseDouble(tr.getAncho().getText()));
+                todo.setTSuspension(Double.parseDouble(tr.getAlto().getText()));
+                llenart(todo);
+                mostrart(todo.getMarca(), todo.getModelo(), todo.getAchacis(), todo.getTSuspension());
+            }if(e.getSource() == tr.getCancelar()){
+                tr.dispose();
             }
         }
     }
@@ -245,6 +261,12 @@ public class Controller implements ActionListener {
         clas.getCancelar().setOpaque(false);
         clas.getCancelar().setContentAreaFilled(false);
         clas.getCancelar().setBorderPainted(false);
+        tr.getGuardar().setOpaque(false);
+        tr.getGuardar().setContentAreaFilled(false);
+        tr.getGuardar().setBorderPainted(false);
+        tr.getCancelar().setOpaque(false);
+        tr.getCancelar().setContentAreaFilled(false);
+        tr.getCancelar().setBorderPainted(false);
     }
 
 }
