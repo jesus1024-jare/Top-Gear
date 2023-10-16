@@ -10,5 +10,5 @@ package Modelo;
  */
 @FunctionalInterface
 public interface R_Interface {
-    double calcular(double x, double y);
+    double calcular(int x, int y);
 }

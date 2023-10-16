@@ -24,6 +24,7 @@ public class Clasico {
         Estado = "";
     }
 
+
     public String getMarca() {
         return marca;
     }

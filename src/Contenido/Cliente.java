@@ -4,20 +4,27 @@
  */
 package Contenido;
 
+import Modelo.Modelo;
+import Modelo.R_Interface;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author ingerioj
  */
-public class Cliente {
+public class Cliente{
 
     String nombre;
     String apellido;
     int id;
     String mar;
     String mode;
-    int dia;
+    public int dia;
+    public int precio;
+    public int total;
 
     public Cliente() {
         nombre = "";
@@ -26,8 +33,26 @@ public class Cliente {
         mar = "";
         mode = "";
         dia = 0;
+        precio = 0;
+        total = 0;
     }
 
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+    
     public int getDia() {
         return dia;
     }
@@ -77,5 +102,30 @@ public class Cliente {
     public void setId(int id) {
         this.id = id;
     }
+
+    public boolean Añadir(Modelo m) {
+        Connection reg = m.getConnection();
+        String SQL = "Insert into Clientes (Nombre, Apellido, Identificacion, MarcaDeAutoAlquilada, ModeloAlquilado, DíasDeAlquiler, Total) values (?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement pst = reg.prepareStatement(SQL);
+            pst.setString(1,    getNombre()); 
+            pst.setString(2, getApellido()); 
+            pst.setInt(3, getId()); 
+            pst.setString(4, getMar());
+            pst.setString(5, getMode());
+            pst.setInt(6, getDia());
+            pst.setInt(7, getTotal());
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de Registro!" + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE); 
+            return false;
+        }
+    }
+
+    public R_Interface multiplicacion = (x, y) -> {
+    double resultado = x * y;
+    return resultado;
+    };
 
 }

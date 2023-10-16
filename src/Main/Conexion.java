@@ -6,6 +6,7 @@ package Main;
 
 import Controlador.*;
 import Contenido.*;
+import Modelo.*;
 /**
  *
  * @author ingerioj
@@ -17,7 +18,8 @@ public class Conexion {
         Familiares fam = new Familiares();
         Deportivo de = new Deportivo();
         Clasico c = new Clasico();
-        Controller con = new Controller(c, de, to, fam, cl);
+        Modelo mo = new Modelo();
+        Controller con = new Controller(c, de, to, fam, cl, mo);
         con.run();
     }
 }

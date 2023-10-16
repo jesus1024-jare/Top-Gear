@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 import Contenido.*;
 import Ventanas.*;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Modelo.*;
 
 /**
  *
@@ -29,8 +29,9 @@ public class Controller implements ActionListener {
     Familiar f;
     Clasicos clas;
     TodoTerreno tr;
+    Modelo mo;
 
-    public Controller(Clasico c, Deportivo de, Todoterreno to, Familiares fam, Cliente cl) {
+    public Controller(Clasico c, Deportivo de, Todoterreno to, Familiares fam, Cliente cl, Modelo model) {
         cla = c;
         cli = cl;
         dep = de;
@@ -42,6 +43,7 @@ public class Controller implements ActionListener {
         deport = new Deport();
         clas = new Clasicos();
         tr = new TodoTerreno();
+        mo = model;
         mod = (DefaultTableModel) pri.getTclientes().getModel();
         moddep = (DefaultTableModel) pri.getTdeportivo().getModel();
         modcla = (DefaultTableModel) pri.getTclasico().getModel();
@@ -76,7 +78,6 @@ public class Controller implements ActionListener {
     ArrayList<Familiares> fam = new ArrayList();
     ArrayList<Todoterreno> tere = new ArrayList();
     ArrayList<Clasico> casic = new ArrayList();
-
     DefaultTableModel mod;
     DefaultTableModel moddep;
     DefaultTableModel modcla;
@@ -109,8 +110,9 @@ public class Controller implements ActionListener {
         casic.add(c);
     }
 
-    public void mostrar(String nom, String ape, int d, String a, String b, int Di) {
-        mod.addRow(new Object[]{nom, ape, d, a, b, Di});
+    public void mostrar(String nom, String ape, int d, String a, String b, int Di, int gp) {
+
+        mod.addRow(new Object[]{nom, ape, d, a, b, Di, gp});
     }
 
     public void mostrard(String ma, String mo, double p, double n, String e) {
@@ -121,8 +123,8 @@ public class Controller implements ActionListener {
         modfami.addRow(new Object[]{ma, mo, p, s});
     }
 
-    public void mostrart(String ma, String mo, double c, double s) {
-        modterre.addRow(new Object[]{ma, mo, c, s});
+    public void mostrart(String ma, String mo, double c, double s, String e) {
+        modterre.addRow(new Object[]{ma, mo, c, s, e});
     }
 
     public void mostrarc(String ma, String mo, int v, double h, String est) {
@@ -160,9 +162,22 @@ public class Controller implements ActionListener {
                 cli.setMar(clientd.getAlqui().getText());
                 cli.setMode(clientd.getModelo().getText());
                 cli.setDia(Integer.parseInt(clientd.getDias().getText()));
+                if (dep.getEstado().equalsIgnoreCase("En uso")) {
+                    System.out.println("Auto no disponible");
+                    // Limpiar los cuadros de texto
+                    clientd.getJnom().setText("");
+                    clientd.getJapelli().setText("");
+                    clientd.getJide().setText("");
+                    clientd.getAlqui().setText("");
+                    clientd.getModelo().setText("");
+                    clientd.getDias().setText("");
+                }
                 if (cli.getMar().equalsIgnoreCase(dep.getMarca()) || cli.getMode().equalsIgnoreCase(dep.getModelo())) {
                     llenar(cli);
-                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                    cli.setPrecio(1000);
+                    cli.setTotal((int) cli.multiplicacion.calcular(cli.getDia(), cli.getPrecio()));
+                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
+                    cli.Añadir(mo);
                     // Cambiar el estado del vehículo deportivo a "En uso"
                     dep.setEstado("En uso");
 
@@ -183,9 +198,20 @@ public class Controller implements ActionListener {
                     }
                 }
 
+                if (cla.getEstado().equalsIgnoreCase("En uso")) {
+                    System.out.println("Auto no disponible");
+                    // Limpiar los cuadros de texto
+                    clientd.getJnom().setText("");
+                    clientd.getJapelli().setText("");
+                    clientd.getJide().setText("");
+                    clientd.getAlqui().setText("");
+                    clientd.getModelo().setText("");
+                    clientd.getDias().setText("");
+                }
                 if (cli.getMar().equalsIgnoreCase(cla.getMarca()) || cli.getMode().equalsIgnoreCase(cla.getModelo())) {
+                    cli.setPrecio(500);
                     llenar(cli);
-                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
                     // Cambiar el estado del vehículo clásico a "En uso"
                     cla.setEstado("En uso");
 
@@ -206,9 +232,20 @@ public class Controller implements ActionListener {
                     }
                 }
 
+                if (fami.getEstado().equalsIgnoreCase("En uso")) {
+                    System.out.println("Auto no disponible");
+                    // Limpiar los cuadros de texto
+                    clientd.getJnom().setText("");
+                    clientd.getJapelli().setText("");
+                    clientd.getJide().setText("");
+                    clientd.getAlqui().setText("");
+                    clientd.getModelo().setText("");
+                    clientd.getDias().setText("");
+                }
                 if (cli.getMar().equalsIgnoreCase(fami.getMarca()) || cli.getMode().equalsIgnoreCase(fami.getModelo())) {
+                    cli.setPrecio(450);
                     llenar(cli);
-                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
                     // Cambiar el estado del vehículo familiar a "En uso"
                     fami.setEstado("En uso");
 
@@ -229,9 +266,20 @@ public class Controller implements ActionListener {
                     }
                 }
 
+                if (todo.getEstado().equalsIgnoreCase("En uso")) {
+                    System.out.println("Auto no disponible");
+                    // Limpiar los cuadros de texto
+                    clientd.getJnom().setText("");
+                    clientd.getJapelli().setText("");
+                    clientd.getJide().setText("");
+                    clientd.getAlqui().setText("");
+                    clientd.getModelo().setText("");
+                    clientd.getDias().setText("");
+                }
                 if (cli.getMar().equalsIgnoreCase(todo.getMarca()) || cli.getMode().equalsIgnoreCase(todo.getModelo())) {
+                    cli.setPrecio(600);
                     llenar(cli);
-                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia());
+                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
                     // Cambiar el estado del vehículo todoterreno a "En uso"
                     todo.setEstado("En uso");
 
@@ -310,7 +358,7 @@ public class Controller implements ActionListener {
                 todo.setAchacis(Double.parseDouble(tr.getAncho().getText()));
                 todo.setTSuspension(Double.parseDouble(tr.getAlto().getText()));
                 llenart(todo);
-                mostrart(todo.getMarca(), todo.getModelo(), todo.getAchacis(), todo.getTSuspension());
+                mostrart(todo.getMarca(), todo.getModelo(), todo.getAchacis(), todo.getTSuspension(), todo.getEstado());
             }
             if (e.getSource() == tr.getCancelar()) {
                 tr.dispose();

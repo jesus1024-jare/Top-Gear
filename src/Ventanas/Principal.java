@@ -153,7 +153,7 @@ public class Principal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Identificacion", "M.Auto Alquilado", "Modelo"
+                "Nombre", "Apellido", "Identificacion", "M.Auto Alquilado", "Modelo", "Días De Alquiler", "Pago Total"
             }
         ));
         jScrollPane1.setViewportView(Tclientes);
