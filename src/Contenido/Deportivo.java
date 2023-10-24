@@ -4,6 +4,11 @@
  */
 package Contenido;
 
+import Modelo.Modelo;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author ingerioj
@@ -63,5 +68,23 @@ public class Deportivo {
     public void setTaceleracion(double Taceleracion) {
         this.Taceleracion = Taceleracion;
     }
-
+    
+    public boolean Añadir(Modelo m) {
+        Connection reg = m.getConnection();
+        String SQL = "Insert into deportivo (marca, modelo, VelocidadM, Taceleracion, estado) values (?,?,?,?,?)";
+        setEstado("Disponible");
+        try {
+            PreparedStatement pst = reg.prepareStatement(SQL);
+            pst.setString(1,getMarca()); 
+            pst.setString(2,getModelo()); 
+            pst.setDouble(3,getVelocidad_maxima()); 
+            pst.setDouble(4,getTaceleracion());
+            pst.setString(5, getEstado());
+            pst.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de Registro!" + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE); 
+            return false;
+        }
+    }
 }

@@ -10,6 +10,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -65,8 +66,6 @@ public class Principal extends javax.swing.JFrame {
         Gclas = new javax.swing.JMenuItem();
         Gtodo = new javax.swing.JMenuItem();
         Gfami = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        Alqui = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -293,13 +292,6 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(agcli);
 
-        jMenu3.setText("Funciones");
-
-        Alqui.setText("Alquiler");
-        jMenu3.add(Alqui);
-
-        jMenuBar1.add(jMenu3);
-
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -350,7 +342,6 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Agregar;
-    private javax.swing.JMenuItem Alqui;
     private javax.swing.JButton Dep;
     private javax.swing.JMenuItem Gclas;
     private javax.swing.JMenuItem Gdeport;
@@ -363,14 +354,13 @@ public class Principal extends javax.swing.JFrame {
     public javax.swing.JTabbedPane Panel;
     private javax.swing.JMenu Salida;
     private javax.swing.JMenuItem Salir;
-    private javax.swing.JTable Tclasico;
+    public javax.swing.JTable Tclasico;
     public javax.swing.JTable Tclientes;
     public javax.swing.JTable Tdeportivo;
     public javax.swing.JTable Terreneitor;
     public javax.swing.JTable Tfamiliar;
     private javax.swing.JMenu agcli;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -384,7 +374,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     // End of variables declaration//GEN-END:variables
-
+    
     public JPanel getjPanel1() {
         return jPanel1;
     }
@@ -400,7 +390,7 @@ public class Principal extends javax.swing.JFrame {
     public void setTclasico(JTable Tclasico) {
         this.Tclasico = Tclasico;
     }
-
+    
     public JTable getTclientes() {
         return Tclientes;
     }
@@ -521,14 +511,6 @@ public class Principal extends javax.swing.JFrame {
         this.Gtodo = Gtodo;
     }
 
-    public JMenuItem getAlqui() {
-        return Alqui;
-    }
-
-    public void setAlqui(JMenuItem Alqui) {
-        this.Alqui = Alqui;
-    }
-
     public JMenuItem getSalir() {
         return Salir;
     }
@@ -536,7 +518,6 @@ public class Principal extends javax.swing.JFrame {
     public void setSalir(JMenuItem Salir) {
         this.Salir = Salir;
     }
-
     
-
+    
 }

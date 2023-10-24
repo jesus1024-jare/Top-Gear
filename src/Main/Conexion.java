@@ -18,8 +18,13 @@ public class Conexion {
         Familiares fam = new Familiares();
         Deportivo de = new Deportivo();
         Clasico c = new Clasico();
+        
+        // Obtén una instancia del Modelo (Singleton)
         Modelo mo = new Modelo();
+        
         Controller con = new Controller(c, de, to, fam, cl, mo);
         con.run();
+        
     }
 }
+

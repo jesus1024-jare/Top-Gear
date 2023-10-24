@@ -235,6 +235,10 @@ public class Clasicos extends javax.swing.JFrame {
     public void setValorH(JTextField ValorH) {
         this.ValorH = ValorH;
     }
+
+    public String setMarca() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 
 }

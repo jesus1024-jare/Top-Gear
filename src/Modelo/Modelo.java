@@ -4,16 +4,20 @@
  */
 package Modelo;
 
-import java.sql.Connection;
+import Main.Conexion;
+import java.sql.*;
 import java.sql.DriverManager;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Ventanas.*;
+import java.util.ArrayList;
 
-/**
- *
- * @author ingerioj
- */
 public class Modelo {
 
+    Conexion conectar = new Conexion();
     private static Connection con;
+    public static PreparedStatement ps;
+    public static ResultSet rs;
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String user = "root";
     private static final String paswword = "";
@@ -36,6 +40,37 @@ public class Modelo {
 
     public void desconectar() {
         con = null;
+    }
+
+    public DefaultTableModel cargarDatos() {
+        Connection reg = getConnection();
+        String SQL = "SELECT * FROM clasico";
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Marca");
+        modelo.addColumn("Modelo");
+        modelo.addColumn("Fabricación");
+        modelo.addColumn("ValorH");
+        modelo.addColumn("Estado");
+
+        try {
+            PreparedStatement pst = reg.prepareStatement(SQL);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Object[] fila = new Object[5];
+                fila[0] = rs.getString("marca");
+                fila[1] = rs.getString("modelo");
+                fila[2] = rs.getInt("fabricacion");
+                fila[3] = rs.getDouble("valorH");
+                fila[4] = rs.getString("estado");
+                modelo.addRow(fila);
+            }
+
+            return modelo;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los datos: " + ex.getMessage(), "Error en la operación", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
 
 }

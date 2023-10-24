@@ -70,7 +70,7 @@ public class Controller implements ActionListener {
         clas.getCancelar().addActionListener(this);
         tr.getGuardar().addActionListener(this);
         tr.getCancelar().addActionListener(this);
-        pri.getAlqui().addActionListener(this);
+        modelo = mo.cargarDatos();
     }
 
     ArrayList<Cliente> datos = new ArrayList();
@@ -83,12 +83,16 @@ public class Controller implements ActionListener {
     DefaultTableModel modcla;
     DefaultTableModel modterre;
     DefaultTableModel modfami;
-
+    DefaultTableModel modelo;
+ 
     public void run() {
         pri.setVisible(true);
         pri.setLocationRelativeTo(null);
         botonTransparente();
+        pri.Tclasico.setModel(modelo);
+        
     }
+    
 
     public void llenar(Cliente p) {
         datos.add(p);
@@ -314,6 +318,7 @@ public class Controller implements ActionListener {
                 dep.setTaceleracion(Double.parseDouble(deport.getJtemp().getText()));
                 dep.setVelocidad_maxima(Double.parseDouble(deport.getJvelo().getText()));
                 llenard(dep);
+                dep.Añadir(mo);
                 mostrard(dep.getMarca(), dep.getModelo(), dep.getVelocidad_maxima(), dep.getTaceleracion(), dep.getEstado());
             }
             if (e.getSource() == deport.getCancelar()) {
@@ -328,6 +333,7 @@ public class Controller implements ActionListener {
                 fami.setModelo(f.getModelo().getText());
                 fami.setCapPersonas(Integer.parseInt(f.getCapacidad().getText()));
                 llenarf(fami);
+                fami.Añadir(mo);
                 mostrarf(fami.getMarca(), fami.getModelo(), fami.getCapPersonas(), fami.getEstado());
             }
             if (e.getSource() == f.getCancelar()) {
@@ -343,6 +349,7 @@ public class Controller implements ActionListener {
                 cla.setFabricacion(Integer.parseInt(clas.getAño().getText()));
                 cla.setValorH(Double.parseDouble(clas.getValorH().getText()));
                 llenarc(cla);
+                cla.Añadir(mo);
                 mostrarc(cla.getMarca(), cla.getModelo(), cla.getFabricacion(), cla.getValorH(), cla.getEstado());
             }
             if (e.getSource() == clas.getCancelar()) {
@@ -358,12 +365,11 @@ public class Controller implements ActionListener {
                 todo.setAchacis(Double.parseDouble(tr.getAncho().getText()));
                 todo.setTSuspension(Double.parseDouble(tr.getAlto().getText()));
                 llenart(todo);
+                todo.Añadir(mo);
                 mostrart(todo.getMarca(), todo.getModelo(), todo.getAchacis(), todo.getTSuspension(), todo.getEstado());
             }
             if (e.getSource() == tr.getCancelar()) {
                 tr.dispose();
-            }
-            if (e.getSource() == pri.getAlqui()) {
             }
         }
     }
