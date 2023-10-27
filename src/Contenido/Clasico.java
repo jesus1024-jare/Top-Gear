@@ -70,23 +70,27 @@ public class Clasico {
     public void setEstado(String Estado) {
         this.Estado = Estado;
     }
-    public boolean Añadir(Modelo m) {
-        Connection reg = m.getConnection();
-        String SQL = "Insert into clasico (marca, modelo, fabricacion, valorH, estado) values (?,?,?,?,?)";
-         setEstado("Disponible");
-        try {
-            PreparedStatement pst = reg.prepareStatement(SQL);
-            pst.setString(1,getMarca()); 
-            pst.setString(2,getModelo()); 
-            pst.setInt(3,getFabricacion()); 
-            pst.setDouble(4,getValorH());
-            pst.setString(5, getEstado());
-            pst.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de Registro!" + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE); 
-            return false;
-        }
+    Modelo m = Modelo.getinstance();
+    public boolean Añadir() {
+    
+    Connection reg = m.getConnection();
+    String SQL = "Insert into clasico (marca, modelo, fabricacion, valorH, estado) values (?,?,?,?,?)";
+    setEstado("Disponible");
+    
+    try {
+        PreparedStatement pst = reg.prepareStatement(SQL);
+        pst.setString(1,getMarca()); 
+        pst.setString(2,getModelo()); 
+        pst.setInt(3,getFabricacion()); 
+        pst.setDouble(4,getValorH());
+        pst.setString(5, getEstado());
+        pst.executeUpdate();
+        return true;
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error de Registro!" + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE); 
+        return false;
     }
+}
+
 
 }

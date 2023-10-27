@@ -103,9 +103,10 @@ public class Cliente{
         this.id = id;
     }
 
-    public boolean Añadir(Modelo m) {
+    Modelo m = Modelo.getinstance();
+    public boolean Añadir() {
         Connection reg = m.getConnection();
-        String SQL = "Insert into Clientes (Nombre, Apellido, Identificacion, MarcaDeAutoAlquilada, ModeloAlquilado, DíasDeAlquiler, Total) values (?,?,?,?,?,?,?)";
+        String SQL = "Insert into cliente (Nombre, Apellido, Identificacion, MarcaDeAutoAlquilada, ModeloAlquilado, DíasDeAlquiler, Total) values (?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst = reg.prepareStatement(SQL);
             pst.setString(1,    getNombre()); 

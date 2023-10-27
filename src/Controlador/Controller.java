@@ -30,8 +30,9 @@ public class Controller implements ActionListener {
     Clasicos clas;
     TodoTerreno tr;
     Modelo mo;
+   
 
-    public Controller(Clasico c, Deportivo de, Todoterreno to, Familiares fam, Cliente cl, Modelo model) {
+    public Controller(Clasico c, Deportivo de, Todoterreno to, Familiares fam, Cliente cl) {
         cla = c;
         cli = cl;
         dep = de;
@@ -43,7 +44,7 @@ public class Controller implements ActionListener {
         deport = new Deport();
         clas = new Clasicos();
         tr = new TodoTerreno();
-        mo = model;
+        mo = Modelo.getinstance();
         mod = (DefaultTableModel) pri.getTclientes().getModel();
         moddep = (DefaultTableModel) pri.getTdeportivo().getModel();
         modcla = (DefaultTableModel) pri.getTclasico().getModel();
@@ -70,7 +71,6 @@ public class Controller implements ActionListener {
         clas.getCancelar().addActionListener(this);
         tr.getGuardar().addActionListener(this);
         tr.getCancelar().addActionListener(this);
-        modelo = mo.cargarDatos();
     }
 
     ArrayList<Cliente> datos = new ArrayList();
@@ -89,7 +89,6 @@ public class Controller implements ActionListener {
         pri.setVisible(true);
         pri.setLocationRelativeTo(null);
         botonTransparente();
-        pri.Tclasico.setModel(modelo);
         
     }
     
@@ -167,7 +166,6 @@ public class Controller implements ActionListener {
                 cli.setMode(clientd.getModelo().getText());
                 cli.setDia(Integer.parseInt(clientd.getDias().getText()));
                 if (dep.getEstado().equalsIgnoreCase("En uso")) {
-                    System.out.println("Auto no disponible");
                     // Limpiar los cuadros de texto
                     clientd.getJnom().setText("");
                     clientd.getJapelli().setText("");
@@ -181,7 +179,7 @@ public class Controller implements ActionListener {
                     cli.setPrecio(1000);
                     cli.setTotal((int) cli.multiplicacion.calcular(cli.getDia(), cli.getPrecio()));
                     mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
-                    cli.Añadir(mo);
+                    cli.Añadir();
                     // Cambiar el estado del vehículo deportivo a "En uso"
                     dep.setEstado("En uso");
 
@@ -203,7 +201,6 @@ public class Controller implements ActionListener {
                 }
 
                 if (cla.getEstado().equalsIgnoreCase("En uso")) {
-                    System.out.println("Auto no disponible");
                     // Limpiar los cuadros de texto
                     clientd.getJnom().setText("");
                     clientd.getJapelli().setText("");
@@ -237,7 +234,6 @@ public class Controller implements ActionListener {
                 }
 
                 if (fami.getEstado().equalsIgnoreCase("En uso")) {
-                    System.out.println("Auto no disponible");
                     // Limpiar los cuadros de texto
                     clientd.getJnom().setText("");
                     clientd.getJapelli().setText("");
@@ -271,7 +267,6 @@ public class Controller implements ActionListener {
                 }
 
                 if (todo.getEstado().equalsIgnoreCase("En uso")) {
-                    System.out.println("Auto no disponible");
                     // Limpiar los cuadros de texto
                     clientd.getJnom().setText("");
                     clientd.getJapelli().setText("");
@@ -318,7 +313,7 @@ public class Controller implements ActionListener {
                 dep.setTaceleracion(Double.parseDouble(deport.getJtemp().getText()));
                 dep.setVelocidad_maxima(Double.parseDouble(deport.getJvelo().getText()));
                 llenard(dep);
-                dep.Añadir(mo);
+                dep.Añadir();
                 mostrard(dep.getMarca(), dep.getModelo(), dep.getVelocidad_maxima(), dep.getTaceleracion(), dep.getEstado());
             }
             if (e.getSource() == deport.getCancelar()) {
@@ -333,7 +328,7 @@ public class Controller implements ActionListener {
                 fami.setModelo(f.getModelo().getText());
                 fami.setCapPersonas(Integer.parseInt(f.getCapacidad().getText()));
                 llenarf(fami);
-                fami.Añadir(mo);
+                fami.Añadir();
                 mostrarf(fami.getMarca(), fami.getModelo(), fami.getCapPersonas(), fami.getEstado());
             }
             if (e.getSource() == f.getCancelar()) {
@@ -349,7 +344,7 @@ public class Controller implements ActionListener {
                 cla.setFabricacion(Integer.parseInt(clas.getAño().getText()));
                 cla.setValorH(Double.parseDouble(clas.getValorH().getText()));
                 llenarc(cla);
-                cla.Añadir(mo);
+                cla.Añadir();
                 mostrarc(cla.getMarca(), cla.getModelo(), cla.getFabricacion(), cla.getValorH(), cla.getEstado());
             }
             if (e.getSource() == clas.getCancelar()) {
@@ -365,7 +360,7 @@ public class Controller implements ActionListener {
                 todo.setAchacis(Double.parseDouble(tr.getAncho().getText()));
                 todo.setTSuspension(Double.parseDouble(tr.getAlto().getText()));
                 llenart(todo);
-                todo.Añadir(mo);
+                todo.Añadir();
                 mostrart(todo.getMarca(), todo.getModelo(), todo.getAchacis(), todo.getTSuspension(), todo.getEstado());
             }
             if (e.getSource() == tr.getCancelar()) {

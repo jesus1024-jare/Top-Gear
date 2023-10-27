@@ -69,7 +69,8 @@ public class Deportivo {
         this.Taceleracion = Taceleracion;
     }
     
-    public boolean Añadir(Modelo m) {
+    Modelo m = Modelo.getinstance();
+    public boolean Añadir() {
         Connection reg = m.getConnection();
         String SQL = "Insert into deportivo (marca, modelo, VelocidadM, Taceleracion, estado) values (?,?,?,?,?)";
         setEstado("Disponible");

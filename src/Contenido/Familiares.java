@@ -58,7 +58,8 @@ public class Familiares {
     public void setCapPersonas(int capPersonas) {
         this.capPersonas = capPersonas;
     }
-    public boolean Añadir(Modelo m) {
+    Modelo m = Modelo.getinstance();
+    public boolean Añadir() {
         Connection reg = m.getConnection();
         String SQL = "Insert into familiares (marca, modelo, capPersonas, estado) values (?,?,?,?)";
         setEstado("Disponible");

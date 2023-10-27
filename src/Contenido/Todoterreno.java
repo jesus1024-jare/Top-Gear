@@ -68,7 +68,8 @@ public class Todoterreno {
     public void setTSuspension(double TSuspension) {
         this.TSuspension = TSuspension;
     }
-    public boolean Añadir(Modelo m) {
+    Modelo m = Modelo.getinstance();
+    public boolean Añadir() {
         Connection reg = m.getConnection();
         String SQL = "Insert into todoterreno (marca, modelo, Achacis, Tsuspension, estado) values (?,?,?,?,?)";
         setEstado("Disponible");
