@@ -7,7 +7,9 @@ package Contenido;
 import Modelo.Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 /**
  *
@@ -87,5 +89,33 @@ public class Deportivo {
             JOptionPane.showMessageDialog(null, "Error de Registro!" + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE); 
             return false;
         }
+    }
+    public ArrayList<Deportivo> obtenerDeportivosDesdeBaseDeDatos() {
+        ArrayList<Deportivo> dp = new ArrayList<>();
+        Connection reg = m.getConnection(); // Obtener la conexión a la base de datos
+
+        // Consulta SQL para obtener los datos de clientes
+        String SQL = "SELECT marca, modelo, VelocidadM, Taceleracion, estado FROM deportivo";
+
+        try {
+            PreparedStatement pst = reg.prepareStatement(SQL);
+            ResultSet rs = pst.executeQuery();
+
+            // Iterar a través de los resultados y crear objetos Cliente
+            while (rs.next()) {
+                Deportivo depor = new Deportivo();
+                depor.setMarca(rs.getString("marca"));
+                depor.setModelo(rs.getString("modelo"));
+                depor.setVelocidad_maxima(rs.getDouble("VelocidadM"));
+                depor.setTaceleracion(rs.getDouble("Taceleracion"));
+                depor.setEstado(rs.getString("estado"));
+
+                dp.add(depor);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener datos de clientes desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return dp;
     }
 }

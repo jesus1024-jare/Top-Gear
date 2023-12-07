@@ -7,7 +7,9 @@ package Contenido;
 import Modelo.Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 /**
  *
@@ -86,5 +88,33 @@ public class Todoterreno {
             JOptionPane.showMessageDialog(null, "Error de Registro!" + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE); 
             return false;
         }
+    }
+    public ArrayList<Todoterreno> obtenerDeportivosDesdeBaseDeDatos() {
+        ArrayList<Todoterreno> dp = new ArrayList<>();
+        Connection reg = m.getConnection(); // Obtener la conexión a la base de datos
+
+        // Consulta SQL para obtener los datos de clientes
+        String SQL = "SELECT marca, modelo, Achacis, Tsuspension, estado FROM todoterreno";
+
+        try {
+            PreparedStatement pst = reg.prepareStatement(SQL);
+            ResultSet rs = pst.executeQuery();
+
+            // Iterar a través de los resultados y crear objetos Cliente
+            while (rs.next()) {
+                Todoterreno td = new Todoterreno();
+                td.setMarca(rs.getString("marca"));
+                td.setModelo(rs.getString("modelo"));
+                td.setAchacis(rs.getDouble("Achacis"));
+                td.setTSuspension(rs.getDouble("Tsuspension"));
+                td.setEstado(rs.getString("estado"));
+
+                dp.add(td);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener datos de clientes desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return dp;
     }
 }

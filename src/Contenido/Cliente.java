@@ -6,16 +6,19 @@ package Contenido;
 
 import Modelo.Modelo;
 import Modelo.R_Interface;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ingerioj
  */
-public class Cliente{
+public class Cliente {
 
     String nombre;
     String apellido;
@@ -52,7 +55,7 @@ public class Cliente{
     public void setTotal(int total) {
         this.total = total;
     }
-    
+
     public int getDia() {
         return dia;
     }
@@ -60,7 +63,6 @@ public class Cliente{
     public void setDia(int dia) {
         this.dia = dia;
     }
-    
 
     public String getMar() {
         return mar;
@@ -77,7 +79,6 @@ public class Cliente{
     public void setMode(String mode) {
         this.mode = mode;
     }
-    
 
     public String getNombre() {
         return nombre;
@@ -104,14 +105,15 @@ public class Cliente{
     }
 
     Modelo m = Modelo.getinstance();
+
     public boolean Añadir() {
         Connection reg = m.getConnection();
-        String SQL = "Insert into cliente (Nombre, Apellido, Identificacion, MarcaDeAutoAlquilada, ModeloAlquilado, DíasDeAlquiler, Total) values (?,?,?,?,?,?,?)";
+        String SQL = "Insert into clientes (Nombre, Apellido, Identificacion, MarcaDeAutoAlquilada, ModeloAlquilado, DíasDeAlquiler, Total) values (?,?,?,?,?,?,?)";
         try {
             PreparedStatement pst = reg.prepareStatement(SQL);
-            pst.setString(1,    getNombre()); 
-            pst.setString(2, getApellido()); 
-            pst.setInt(3, getId()); 
+            pst.setString(1, getNombre());
+            pst.setString(2, getApellido());
+            pst.setInt(3, getId());
             pst.setString(4, getMar());
             pst.setString(5, getMode());
             pst.setInt(6, getDia());
@@ -119,14 +121,46 @@ public class Cliente{
             pst.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de Registro!" + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE); 
+            JOptionPane.showMessageDialog(null, "Error de Registro!" + ex, "Error en la operación", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }
 
     public R_Interface multiplicacion = (x, y) -> {
-    double resultado = x * y;
-    return resultado;
+        double resultado = x * y;
+        return resultado;
     };
+
+    public ArrayList<Cliente> obtenerClientesDesdeBaseDeDatos() {
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        Connection reg = m.getConnection(); // Obtener la conexión a la base de datos
+
+        // Consulta SQL para obtener los datos de clientes
+        String SQL = "SELECT Nombre, Apellido, Identificacion, MarcaDeAutoAlquilada, ModeloAlquilado, DíasDeAlquiler, Total FROM clientes";
+
+        try {
+            PreparedStatement pst = reg.prepareStatement(SQL);
+            ResultSet rs = pst.executeQuery();
+
+            // Iterar a través de los resultados y crear objetos Cliente
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setNombre(rs.getString("Nombre"));
+                cliente.setApellido(rs.getString("Apellido"));
+                cliente.setId(rs.getInt("Identificacion"));
+                cliente.setMar(rs.getString("MarcaDeAutoAlquilada"));
+                cliente.setMode(rs.getString("ModeloAlquilado"));
+                cliente.setDia(rs.getInt("DíasDeAlquiler"));
+                cliente.setTotal(rs.getInt("Total"));
+
+                clientes.add(cliente);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al obtener datos de clientes desde la base de datos: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return clientes;
+    }
+    
 
 }

@@ -11,6 +11,7 @@ import Ventanas.*;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Modelo.*;
+import javax.swing.JTable;
 
 /**
  *
@@ -30,7 +31,6 @@ public class Controller implements ActionListener {
     Clasicos clas;
     TodoTerreno tr;
     Modelo mo;
-   
 
     public Controller(Clasico c, Deportivo de, Todoterreno to, Familiares fam, Cliente cl) {
         cla = c;
@@ -84,14 +84,17 @@ public class Controller implements ActionListener {
     DefaultTableModel modterre;
     DefaultTableModel modfami;
     DefaultTableModel modelo;
- 
+
     public void run() {
         pri.setVisible(true);
         pri.setLocationRelativeTo(null);
         botonTransparente();
-        
+        cargarDatosEnTablaClientes();
+        cargarDatosEnTablaDeportivos();
+        cargarDatosEnTablaClasico();
+        cargarDatosEnTablaFamiliar();
+        cargarDatosEnTablaTodoTerreno();
     }
-    
 
     public void llenar(Cliente p) {
         datos.add(p);
@@ -430,4 +433,107 @@ public class Controller implements ActionListener {
         return -1; // No se encontró ninguna coincidencia
     }
 
+    public void cargarDatosEnTablaClientes() {
+        // Obtener la referencia al JTable de clientes desde la ventana principal (suponiendo que se llame tclientes)
+        JTable tablaClientes = pri.getTclientes();
+
+        // Limpiar la tabla antes de cargar nuevos datos
+        DefaultTableModel modeloTablaClientes = (DefaultTableModel) tablaClientes.getModel();
+        modeloTablaClientes.setRowCount(0); // Limpiar la tabla
+
+        // Llenar la tabla con los datos de la base de datos
+        ArrayList<Cliente> clientes = cli.obtenerClientesDesdeBaseDeDatos(); // Obtener los datos de la base de datos
+        for (Cliente cliente : clientes) {
+            modeloTablaClientes.addRow(new Object[]{
+                cliente.getNombre(),
+                cliente.getApellido(),
+                cliente.getId(),
+                cliente.getMar(),
+                cliente.getMode(),
+                cliente.getDia(),
+                cliente.getTotal()
+            });
+        }
+    }
+    public void cargarDatosEnTablaDeportivos() {
+        // Obtener la referencia al JTable de deportivos desde la ventana principal (suponiendo que se llame tclientes)
+        JTable tablaDeportivos = pri.getTdeportivo();
+
+        // Limpiar la tabla antes de cargar nuevos datos
+        DefaultTableModel modeloTablaDeportivo = (DefaultTableModel) tablaDeportivos.getModel();
+        modeloTablaDeportivo.setRowCount(0); // Limpiar la tabla
+
+        // Llenar la tabla con los datos de la base de datos
+        ArrayList<Deportivo> de = dep.obtenerDeportivosDesdeBaseDeDatos(); // Obtener los datos de la base de datos
+        for (Deportivo depp : de) {
+            modeloTablaDeportivo.addRow(new Object[]{
+                depp.getMarca(),
+                depp.getModelo(),
+                depp.getVelocidad_maxima(),
+                depp.getTaceleracion(),
+                depp.getEstado()
+            });
+        }
+    }
+    
+    public void cargarDatosEnTablaClasico() {
+        // Obtener la referencia al JTable de deportivos desde la ventana principal (suponiendo que se llame tclientes)
+        JTable tablaClasico = pri.getTclasico();
+
+        // Limpiar la tabla antes de cargar nuevos datos
+        DefaultTableModel modeloTablaClasic = (DefaultTableModel) tablaClasico.getModel();
+        modeloTablaClasic.setRowCount(0); // Limpiar la tabla
+
+        // Llenar la tabla con los datos de la base de datos
+        ArrayList<Clasico> clasi = cla.obtenerClasicDesdeBaseDeDatos(); // Obtener los datos de la base de datos
+        for (Clasico ca : clasi) {
+            modeloTablaClasic.addRow(new Object[]{
+                ca.getMarca(),
+                ca.getModelo(),
+                ca.getFabricacion(),
+                ca.getValorH(),
+                ca.getEstado()
+            });
+        }
+    }
+    
+    public void cargarDatosEnTablaFamiliar() {
+        // Obtener la referencia al JTable de deportivos desde la ventana principal (suponiendo que se llame tclientes)
+        JTable tablaFamiliar = pri.getTfamiliar();
+
+        // Limpiar la tabla antes de cargar nuevos datos
+        DefaultTableModel modeloTablaFamili = (DefaultTableModel) tablaFamiliar.getModel();
+        modeloTablaFamili.setRowCount(0); // Limpiar la tabla
+
+        // Llenar la tabla con los datos de la base de datos
+        ArrayList<Familiares> fam = fami.obtenerFamiliarDesdeBaseDeDatos();
+        for (Familiares fa : fam) {
+            modeloTablaFamili.addRow(new Object[]{
+                fa.getMarca(),
+                fa.getModelo(),
+                fa.getCapPersonas(),
+                fa.getEstado()
+            });
+        }
+    }
+    public void cargarDatosEnTablaTodoTerreno() {
+        // Obtener la referencia al JTable de deportivos desde la ventana principal (suponiendo que se llame tclientes)
+        JTable tablaTerre = pri.getTerreneitor();
+
+        // Limpiar la tabla antes de cargar nuevos datos
+        DefaultTableModel modeloTablaTerre = (DefaultTableModel) tablaTerre.getModel();
+        modeloTablaTerre.setRowCount(0); // Limpiar la tabla
+
+        // Llenar la tabla con los datos de la base de datos
+        ArrayList<Todoterreno> td = todo.obtenerDeportivosDesdeBaseDeDatos();
+        for (Todoterreno tdd : td) {
+            modeloTablaTerre.addRow(new Object[]{
+                tdd.getMarca(),
+                tdd.getModelo(),
+                tdd.getAchacis(),
+                tdd.getTSuspension(),
+                tdd.getEstado()
+            });
+        }
+    }
 }
