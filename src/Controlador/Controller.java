@@ -11,6 +11,7 @@ import Ventanas.*;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import Modelo.*;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -71,8 +72,18 @@ public class Controller implements ActionListener {
         clas.getCancelar().addActionListener(this);
         tr.getGuardar().addActionListener(this);
         tr.getCancelar().addActionListener(this);
+        pri.getBusqueda().addActionListener(this);
+        clientes = cli.obtenerClientesDesdeBaseDeDatos();
+        deporti = dep.obtenerDeportivosDesdeBaseDeDatos();
+        Familiar = fami.obtenerFamiliarDesdeBaseDeDatos();
+        clasico = cla.obtenerClasicDesdeBaseDeDatos();
+        todoterren = todo.obtenerTodoTerrenoDesdeBaseDeDatos();
     }
-
+    ArrayList<Todoterreno> todoterren = new ArrayList();
+    ArrayList<Clasico> clasico = new ArrayList();
+    ArrayList<Familiares> Familiar = new ArrayList();
+    ArrayList<Deportivo> deporti = new ArrayList();
+    ArrayList<Cliente> clientes = new ArrayList();
     ArrayList<Cliente> datos = new ArrayList();
     ArrayList<Deportivo> depor = new ArrayList();
     ArrayList<Familiares> fam = new ArrayList();
@@ -89,11 +100,8 @@ public class Controller implements ActionListener {
         pri.setVisible(true);
         pri.setLocationRelativeTo(null);
         botonTransparente();
-        cargarDatosEnTablaClientes();
-        cargarDatosEnTablaDeportivos();
-        cargarDatosEnTablaClasico();
-        cargarDatosEnTablaFamiliar();
-        cargarDatosEnTablaTodoTerreno();
+        actualizarTablaDesdeBaseDeDatos();
+        mo.getConnection();
     }
 
     public void llenar(Cliente p) {
@@ -137,6 +145,11 @@ public class Controller implements ActionListener {
         modcla.addRow(new Object[]{ma, mo, v, h, est});
     }
 
+    public R_Interface multiplicacion = (x, y) -> {
+        double resultado = x * y;
+        return resultado;
+    };
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == pri.getDep()) {
@@ -154,13 +167,11 @@ public class Controller implements ActionListener {
             if (e.getSource() == pri.getJfam()) {
                 pri.Panel.setSelectedIndex(3);
             }
-            if (e.getSource() == pri.getSalir()) {
-                System.exit(0);
-            }
             if (e.getSource() == pri.getAgregar()) {
                 clientd.setVisible(true);
                 clientd.setLocationRelativeTo(null);
             }
+
             if (e.getSource() == clientd.getGuardarr()) {
                 cli.setNombre(clientd.getJnom().getText());
                 cli.setApellido(clientd.getJapelli().getText());
@@ -168,141 +179,100 @@ public class Controller implements ActionListener {
                 cli.setMar(clientd.getAlqui().getText());
                 cli.setMode(clientd.getModelo().getText());
                 cli.setDia(Integer.parseInt(clientd.getDias().getText()));
-                if (dep.getEstado().equalsIgnoreCase("En uso")) {
-                    // Limpiar los cuadros de texto
-                    clientd.getJnom().setText("");
-                    clientd.getJapelli().setText("");
-                    clientd.getJide().setText("");
-                    clientd.getAlqui().setText("");
-                    clientd.getModelo().setText("");
-                    clientd.getDias().setText("");
-                }
-                if (cli.getMar().equalsIgnoreCase(dep.getMarca()) || cli.getMode().equalsIgnoreCase(dep.getModelo())) {
-                    llenar(cli);
-                    cli.setPrecio(1000);
-                    cli.setTotal((int) cli.multiplicacion.calcular(cli.getDia(), cli.getPrecio()));
-                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
-                    cli.Añadir();
-                    // Cambiar el estado del vehículo deportivo a "En uso"
-                    dep.setEstado("En uso");
 
-                    // Buscar el auto deportivo correspondiente en la lista y actualizar su estado
-                    for (Deportivo deportivo : depor) {
-                        if (deportivo.getMarca().equalsIgnoreCase(dep.getMarca()) && deportivo.getModelo().equalsIgnoreCase(dep.getModelo())) {
-                            deportivo.setEstado("En uso");
-                            break; // Una vez encontrado y actualizado, puedes salir del bucle
+                boolean encontrado = false;
+
+                for (Deportivo depp : deporti) {
+                    if (cli.getMar().equalsIgnoreCase(depp.getMarca()) || cli.getMode().equalsIgnoreCase(depp.getModelo())) {
+                        llenar(cli);
+                        cli.setPrecio(1000);
+                        int n = (int) multiplicacion.calcular(cli.getPrecio(), cli.getDia());
+                        cli.setTotal(n);
+                        mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
+                        cli.Añadir();
+                        JOptionPane.showMessageDialog(null, "Cliente añadido");
+
+                        // Cambiar el estado del vehículo deportivo a "En uso"
+                        depp.setEstado("En uso");
+                        mo.actualizarEstado(depp.getMarca(), depp.getModelo(), depp.getEstado());
+                        moddep.fireTableDataChanged();
+                        pri.getTdeportivo().repaint();
+                        encontrado = true;
+                        break;
+                    }
+                }
+
+                if (!encontrado) {
+                    for (Clasico clasi : clasico) {
+                        if (cli.getMar().equalsIgnoreCase(clasi.getMarca()) || cli.getMode().equalsIgnoreCase(clasi.getModelo())) {
+                            llenar(cli);
+                            cli.setPrecio(500);
+                            int n = (int) multiplicacion.calcular(cli.getPrecio(), cli.getDia());
+                            cli.setTotal(n);
+                            mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
+                            cli.Añadir();
+                            JOptionPane.showMessageDialog(null, "Cliente añadido");
+
+                            // Cambiar el estado del vehículo clásico a "En uso"
+                            clasi.setEstado("En uso");
+                            mo.actualizarEstadoC(clasi.getMarca(), clasi.getModelo(), clasi.getEstado());
+                            modcla.fireTableDataChanged();
+                            pri.getTclasico().repaint();
+                            encontrado = true;
+                            break;
                         }
                     }
-                    // Ahora actualiza la tabla de autos deportivos
-                    DefaultTableModel moddep = (DefaultTableModel) pri.getTdeportivo().getModel();
-                    // Puedes reemplazar la fila existente en la tabla en lugar de agregar una nueva fila
-                    int rowIndexToUpdate = encontrarFilaEnTabla(moddep, dep.getMarca(), dep.getModelo());
-                    if (rowIndexToUpdate != -1) {
-                        moddep.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
-                        moddep.fireTableDataChanged(); // Notifica al modelo de datos que se ha realizado un cambio
-                    }
                 }
 
-                if (cla.getEstado().equalsIgnoreCase("En uso")) {
-                    // Limpiar los cuadros de texto
-                    clientd.getJnom().setText("");
-                    clientd.getJapelli().setText("");
-                    clientd.getJide().setText("");
-                    clientd.getAlqui().setText("");
-                    clientd.getModelo().setText("");
-                    clientd.getDias().setText("");
-                }
-                if (cli.getMar().equalsIgnoreCase(cla.getMarca()) || cli.getMode().equalsIgnoreCase(cla.getModelo())) {
-                    cli.setPrecio(500);
-                    llenar(cli);
-                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
-                    // Cambiar el estado del vehículo clásico a "En uso"
-                    cla.setEstado("En uso");
+                if (!encontrado) {
+                    for (Todoterreno terr : todoterren) {
+                        if (cli.getMar().equalsIgnoreCase(terr.getMarca()) || cli.getMode().equalsIgnoreCase(terr.getModelo())) {
+                            llenar(cli);
+                            cli.setPrecio(600);
+                            int n = (int) multiplicacion.calcular(cli.getPrecio(), cli.getDia());
+                            cli.setTotal(n);
+                            mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
+                            cli.Añadir();
+                            JOptionPane.showMessageDialog(null, "Cliente añadido");
 
-                    // Buscar el auto clásico correspondiente en la lista y actualizar su estado
-                    for (Clasico clasico : casic) {
-                        if (clasico.getMarca().equalsIgnoreCase(cla.getMarca()) && clasico.getModelo().equalsIgnoreCase(cla.getModelo())) {
-                            clasico.setEstado("En uso");
-                            break; // Una vez encontrado y actualizado, puedes salir del bucle
+                            // Cambiar el estado del vehículo todo a "En uso"
+                            terr.setEstado("En uso");
+                            mo.actualizarEstadoT(terr.getMarca(), terr.getModelo(), terr.getEstado());
+                            modterre.fireTableDataChanged();
+                            pri.getTerreneitor().repaint();
+                            encontrado = true;
+                            break;
                         }
                     }
-                    // Ahora actualiza la tabla de autos clásicos
-                    DefaultTableModel modcla = (DefaultTableModel) pri.getTclasico().getModel();
-                    // Puedes reemplazar la fila existente en la tabla en lugar de agregar una nueva fila
-                    int rowIndexToUpdate = encontrarFilaEnTabla(modcla, cla.getMarca(), cla.getModelo());
-                    if (rowIndexToUpdate != -1) {
-                        modcla.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
-                        modcla.fireTableDataChanged(); // Notifica al modelo de datos que se ha realizado un cambio
-                    }
                 }
 
-                if (fami.getEstado().equalsIgnoreCase("En uso")) {
-                    // Limpiar los cuadros de texto
-                    clientd.getJnom().setText("");
-                    clientd.getJapelli().setText("");
-                    clientd.getJide().setText("");
-                    clientd.getAlqui().setText("");
-                    clientd.getModelo().setText("");
-                    clientd.getDias().setText("");
-                }
-                if (cli.getMar().equalsIgnoreCase(fami.getMarca()) || cli.getMode().equalsIgnoreCase(fami.getModelo())) {
-                    cli.setPrecio(450);
-                    llenar(cli);
-                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
-                    // Cambiar el estado del vehículo familiar a "En uso"
-                    fami.setEstado("En uso");
+                if (!encontrado) {
+                    for (Familiares fam : Familiar) {
+                        if (cli.getMar().equalsIgnoreCase(fam.getMarca()) || cli.getMode().equalsIgnoreCase(fam.getModelo())) {
+                            llenar(cli);
+                            cli.setPrecio(450);
+                            int n = (int) multiplicacion.calcular(cli.getPrecio(), cli.getDia());
+                            cli.setTotal(n);
+                            mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
+                            cli.Añadir();
+                            JOptionPane.showMessageDialog(null, "Cliente añadido");
 
-                    // Buscar el auto familiar correspondiente en la lista y actualizar su estado
-                    for (Familiares familiar : fam) {
-                        if (familiar.getMarca().equalsIgnoreCase(fami.getMarca()) && familiar.getModelo().equalsIgnoreCase(fami.getModelo())) {
-                            familiar.setEstado("En uso");
-                            break; // Una vez encontrado y actualizado, puedes salir del bucle
+                            // Cambiar el estado del vehículo familiar a "En uso"
+                            fam.setEstado("En uso");
+                            mo.actualizarEstadoF(fam.getMarca(), fam.getModelo(), fam.getEstado());
+                            modfami.fireTableDataChanged();
+                            pri.getTfamiliar().repaint();
+                            encontrado = true;
+                            break;
                         }
                     }
-                    // Ahora actualiza la tabla de autos familiares
-                    DefaultTableModel modfami = (DefaultTableModel) pri.getTfamiliar().getModel();
-                    // Puedes reemplazar la fila existente en la tabla en lugar de agregar una nueva fila
-                    int rowIndexToUpdate = encontrarFilaEnTabla(modfami, fami.getMarca(), fami.getModelo());
-                    if (rowIndexToUpdate != -1) {
-                        modfami.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
-                        modfami.fireTableDataChanged(); // Notifica al modelo de datos que se ha realizado un cambio
-                    }
                 }
 
-                if (todo.getEstado().equalsIgnoreCase("En uso")) {
-                    // Limpiar los cuadros de texto
-                    clientd.getJnom().setText("");
-                    clientd.getJapelli().setText("");
-                    clientd.getJide().setText("");
-                    clientd.getAlqui().setText("");
-                    clientd.getModelo().setText("");
-                    clientd.getDias().setText("");
+                if (!encontrado) {
+                    JOptionPane.showMessageDialog(null, "Auto no encontrado en la base de datos");
                 }
-                if (cli.getMar().equalsIgnoreCase(todo.getMarca()) || cli.getMode().equalsIgnoreCase(todo.getModelo())) {
-                    cli.setPrecio(600);
-                    llenar(cli);
-                    mostrar(cli.getNombre(), cli.getApellido(), cli.getId(), cli.getMar(), cli.getMode(), cli.getDia(), cli.getTotal());
-                    // Cambiar el estado del vehículo todoterreno a "En uso"
-                    todo.setEstado("En uso");
-
-                    // Buscar el auto todoterreno correspondiente en la lista y actualizar su estado
-                    for (Todoterreno tod : tere) {
-                        if (tod.getMarca().equalsIgnoreCase(todo.getMarca()) && tod.getModelo().equalsIgnoreCase(todo.getModelo())) {
-                            tod.setEstado("En uso");
-                            break; // Una vez encontrado y actualizado, puedes salir del bucle
-                        }
-                    }
-                    // Ahora actualiza la tabla de autos todoterreno
-                    DefaultTableModel modterre = (DefaultTableModel) pri.getTerreneitor().getModel();
-                    // Puedes reemplazar la fila existente en la tabla en lugar de agregar una nueva fila
-                    int rowIndexToUpdate = encontrarFilaEnTabla(modterre, todo.getMarca(), todo.getModelo());
-                    if (rowIndexToUpdate != -1) {
-                        modterre.setValueAt("En uso", rowIndexToUpdate, 4); // 4 es el índice de la columna de estado
-                        modterre.fireTableDataChanged(); // Notifica al modelo de datos que se ha realizado un cambio
-                    }
-                }
-
             }
+
             if (e.getSource() == clientd.getCancelarr()) {
                 clientd.dispose();
             }
@@ -368,6 +338,25 @@ public class Controller implements ActionListener {
             }
             if (e.getSource() == tr.getCancelar()) {
                 tr.dispose();
+            }
+            if (e.getSource() == pri.getBusqueda()) {
+                String mod = JOptionPane.showInputDialog("Digite el modelo del auto a buscar");
+                boolean encontrado = false;
+
+                for (Cliente cliente : clientes) {
+                    if (cliente.getMode().equalsIgnoreCase(mod)) {
+                        JOptionPane.showMessageDialog(null, "Cliente encontrado: \n"
+                                + "Nombre: " + cliente.getNombre() + "\n"
+                                + "Apellido: " + cliente.getApellido() + "\n"
+                                + "ID: " + cliente.getId() + "\n"
+                                + "Marca: " + cliente.getMar() + "\n"
+                                + "Modelo: " + cliente.getMode() + "\n"
+                                + "Días: " + cliente.getDia() + "\n"
+                                + "Total: " + cliente.getTotal());
+                        encontrado = true;
+                        break; // Si ya se encontró el cliente, se sale del bucle
+                    }
+                }
             }
         }
     }
@@ -455,6 +444,7 @@ public class Controller implements ActionListener {
             });
         }
     }
+
     public void cargarDatosEnTablaDeportivos() {
         // Obtener la referencia al JTable de deportivos desde la ventana principal (suponiendo que se llame tclientes)
         JTable tablaDeportivos = pri.getTdeportivo();
@@ -475,7 +465,7 @@ public class Controller implements ActionListener {
             });
         }
     }
-    
+
     public void cargarDatosEnTablaClasico() {
         // Obtener la referencia al JTable de deportivos desde la ventana principal (suponiendo que se llame tclientes)
         JTable tablaClasico = pri.getTclasico();
@@ -496,7 +486,7 @@ public class Controller implements ActionListener {
             });
         }
     }
-    
+
     public void cargarDatosEnTablaFamiliar() {
         // Obtener la referencia al JTable de deportivos desde la ventana principal (suponiendo que se llame tclientes)
         JTable tablaFamiliar = pri.getTfamiliar();
@@ -516,6 +506,7 @@ public class Controller implements ActionListener {
             });
         }
     }
+
     public void cargarDatosEnTablaTodoTerreno() {
         // Obtener la referencia al JTable de deportivos desde la ventana principal (suponiendo que se llame tclientes)
         JTable tablaTerre = pri.getTerreneitor();
@@ -525,7 +516,7 @@ public class Controller implements ActionListener {
         modeloTablaTerre.setRowCount(0); // Limpiar la tabla
 
         // Llenar la tabla con los datos de la base de datos
-        ArrayList<Todoterreno> td = todo.obtenerDeportivosDesdeBaseDeDatos();
+        ArrayList<Todoterreno> td = todo.obtenerTodoTerrenoDesdeBaseDeDatos();
         for (Todoterreno tdd : td) {
             modeloTablaTerre.addRow(new Object[]{
                 tdd.getMarca(),
@@ -535,5 +526,13 @@ public class Controller implements ActionListener {
                 tdd.getEstado()
             });
         }
+    }
+
+    public void actualizarTablaDesdeBaseDeDatos() {
+        cargarDatosEnTablaClientes();
+        cargarDatosEnTablaDeportivos();
+        cargarDatosEnTablaClasico();
+        cargarDatosEnTablaFamiliar();
+        cargarDatosEnTablaTodoTerreno();
     }
 }

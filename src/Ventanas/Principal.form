@@ -8,13 +8,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="Salir">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Salir"/>
-              </Properties>
-            </MenuItem>
-          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="agcli">
           <Properties>
@@ -44,6 +37,11 @@
             <MenuItem class="javax.swing.JMenuItem" name="Gfami">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Agregar A.Familiar"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="Busqueda">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Buscar"/>
               </Properties>
             </MenuItem>
           </SubComponents>

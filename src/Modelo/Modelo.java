@@ -1,7 +1,7 @@
 package Modelo;
 
 import Main.Conexion;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,5 +47,95 @@ public class Modelo {
     public void desconectar() {
         con = null;
     }
-
+    public void actualizarEstado(String marca, String modelo, String nuevoEstado) {
+        // Query para actualizar el estado del vehículo en la base de datos
+        String query = "UPDATE deportivo SET estado = ? WHERE marca = ? AND modelo = ?";
+        
+        try {
+            // Preparar la declaración SQL
+            PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+            preparedStatement.setString(1, nuevoEstado);
+            preparedStatement.setString(2, marca);
+            preparedStatement.setString(3, modelo);
+            
+            // Ejecutar la actualización
+            int filasActualizadas = preparedStatement.executeUpdate();
+            
+            if (filasActualizadas > 0) {
+                System.out.println("Estado del vehículo actualizado correctamente.");
+            } else {
+                System.out.println("No se pudo actualizar el estado del vehículo.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void actualizarEstadoC(String marca, String modelo, String nuevoEstado) {
+        // Query para actualizar el estado del vehículo en la base de datos
+        String query = "UPDATE clasico SET estado = ? WHERE marca = ? AND modelo = ?";
+        
+        try {
+            // Preparar la declaración SQL
+            PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+            preparedStatement.setString(1, nuevoEstado);
+            preparedStatement.setString(2, marca);
+            preparedStatement.setString(3, modelo);
+            
+            // Ejecutar la actualización
+            int filasActualizadas = preparedStatement.executeUpdate();
+            
+            if (filasActualizadas > 0) {
+                System.out.println("Estado del vehículo actualizado correctamente.");
+            } else {
+                System.out.println("No se pudo actualizar el estado del vehículo.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void actualizarEstadoF(String marca, String modelo, String nuevoEstado) {
+        // Query para actualizar el estado del vehículo en la base de datos
+        String query = "UPDATE familiares SET estado = ? WHERE marca = ? AND modelo = ?";
+        
+        try {
+            // Preparar la declaración SQL
+            PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+            preparedStatement.setString(1, nuevoEstado);
+            preparedStatement.setString(2, marca);
+            preparedStatement.setString(3, modelo);
+            
+            // Ejecutar la actualización
+            int filasActualizadas = preparedStatement.executeUpdate();
+            
+            if (filasActualizadas > 0) {
+                System.out.println("Estado del vehículo actualizado correctamente.");
+            } else {
+                System.out.println("No se pudo actualizar el estado del vehículo.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }public void actualizarEstadoT(String marca, String modelo, String nuevoEstado) {
+        // Query para actualizar el estado del vehículo en la base de datos
+        String query = "UPDATE todoterreno SET estado = ? WHERE marca = ? AND modelo = ?";
+        
+        try {
+            // Preparar la declaración SQL
+            PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+            preparedStatement.setString(1, nuevoEstado);
+            preparedStatement.setString(2, marca);
+            preparedStatement.setString(3, modelo);
+            
+            // Ejecutar la actualización
+            int filasActualizadas = preparedStatement.executeUpdate();
+            
+            if (filasActualizadas > 0) {
+                System.out.println("Estado del vehículo actualizado correctamente.");
+            } else {
+                System.out.println("No se pudo actualizar el estado del vehículo.");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 }

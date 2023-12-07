@@ -5,12 +5,10 @@
 package Ventanas;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -59,13 +57,13 @@ public class Principal extends javax.swing.JFrame {
         Terreneitor = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         Salida = new javax.swing.JMenu();
-        Salir = new javax.swing.JMenuItem();
         agcli = new javax.swing.JMenu();
         Agregar = new javax.swing.JMenuItem();
         Gdeport = new javax.swing.JMenuItem();
         Gclas = new javax.swing.JMenuItem();
         Gtodo = new javax.swing.JMenuItem();
         Gfami = new javax.swing.JMenuItem();
+        Busqueda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -267,10 +265,6 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().add(Panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(436, -31, -1, 780));
 
         Salida.setText("Archivo");
-
-        Salir.setText("Salir");
-        Salida.add(Salir);
-
         jMenuBar1.add(Salida);
 
         agcli.setText("Registro");
@@ -289,6 +283,9 @@ public class Principal extends javax.swing.JFrame {
 
         Gfami.setText("Agregar A.Familiar");
         agcli.add(Gfami);
+
+        Busqueda.setText("Buscar");
+        agcli.add(Busqueda);
 
         jMenuBar1.add(agcli);
 
@@ -342,6 +339,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Agregar;
+    private javax.swing.JMenuItem Busqueda;
     private javax.swing.JButton Dep;
     private javax.swing.JMenuItem Gclas;
     private javax.swing.JMenuItem Gdeport;
@@ -353,7 +351,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton Jtod;
     public javax.swing.JTabbedPane Panel;
     private javax.swing.JMenu Salida;
-    private javax.swing.JMenuItem Salir;
     public javax.swing.JTable Tclasico;
     public javax.swing.JTable Tclientes;
     public javax.swing.JTable Tdeportivo;
@@ -511,13 +508,12 @@ public class Principal extends javax.swing.JFrame {
         this.Gtodo = Gtodo;
     }
 
-    public JMenuItem getSalir() {
-        return Salir;
+    public JMenuItem getBusqueda() {
+        return Busqueda;
     }
 
-    public void setSalir(JMenuItem Salir) {
-        this.Salir = Salir;
+    public void setBusqueda(JMenuItem Busqueda) {
+        this.Busqueda = Busqueda;
     }
-    
     
 }

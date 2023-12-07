@@ -89,7 +89,7 @@ public class Todoterreno {
             return false;
         }
     }
-    public ArrayList<Todoterreno> obtenerDeportivosDesdeBaseDeDatos() {
+    public ArrayList<Todoterreno> obtenerTodoTerrenoDesdeBaseDeDatos() {
         ArrayList<Todoterreno> dp = new ArrayList<>();
         Connection reg = m.getConnection(); // Obtener la conexión a la base de datos
 

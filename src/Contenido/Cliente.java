@@ -11,8 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -125,12 +123,6 @@ public class Cliente {
             return false;
         }
     }
-
-    public R_Interface multiplicacion = (x, y) -> {
-        double resultado = x * y;
-        return resultado;
-    };
-
     public ArrayList<Cliente> obtenerClientesDesdeBaseDeDatos() {
         ArrayList<Cliente> clientes = new ArrayList<>();
         Connection reg = m.getConnection(); // Obtener la conexión a la base de datos

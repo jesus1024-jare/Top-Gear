@@ -70,7 +70,7 @@ public class Familiares {
             pst.setString(1,getMarca()); 
             pst.setString(2,getModelo()); 
             pst.setInt(3,getCapPersonas()); 
-            pst.setString(5, getEstado());
+            pst.setString(4, getEstado());
             pst.executeUpdate();
             return true;
         } catch (SQLException ex) {
