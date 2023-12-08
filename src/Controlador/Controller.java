@@ -171,6 +171,36 @@ public class Controller implements ActionListener {
         double resultado = x * y;
         return resultado;
     };
+    public void actualizarTablaDeportiva() {
+    moddep.setRowCount(0); // Limpiar la tabla deportiva
+    for (Deportivo depp : deporti) {
+        mostrard(depp.getMarca(), depp.getModelo(), depp.getVelocidad_maxima(), depp.getTaceleracion(), depp.getEstado());
+    }
+    }
+    // Método para actualizar tabla de vehículos clásicos
+public void actualizarTablaClasicos() {
+    modcla.setRowCount(0); // Limpiar la tabla de clásicos
+    for (Clasico clasi : clasico) {
+        mostrarc(clasi.getMarca(), clasi.getModelo(), clasi.getFabricacion(), clasi.getValorH(), clasi.getEstado());
+    }
+}
+
+// Método para actualizar tabla de todoterrenos
+public void actualizarTablaTodoterrenos() {
+    modterre.setRowCount(0); // Limpiar la tabla de todoterrenos
+    for (Todoterreno terr : todoterren) {
+        mostrart(terr.getMarca(), terr.getModelo(), terr.getAchacis(), terr.getTSuspension(), terr.getEstado());
+    }
+}
+
+// Método para actualizar tabla de vehículos familiares
+public void actualizarTablaFamiliares() {
+    modfami.setRowCount(0); // Limpiar la tabla de familiares
+    for (Familiares fami : Familiar) {
+        mostrarf(fami.getMarca(), fami.getModelo(), fami.getCapPersonas(), fami.getEstado());
+    }
+}
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -217,8 +247,7 @@ public class Controller implements ActionListener {
                         // Cambiar el estado del vehículo deportivo a "En uso"
                         depp.setEstado("En uso");
                         mo.actualizarEstado(depp.getMarca(), depp.getModelo(), depp.getEstado());
-                        moddep.fireTableDataChanged();
-                        pri.getTdeportivo().repaint();
+                        actualizarTablaDeportiva();
                         encontrado = true;
                         break;
                     }
@@ -238,8 +267,7 @@ public class Controller implements ActionListener {
                             // Cambiar el estado del vehículo clásico a "En uso"
                             clasi.setEstado("En uso");
                             mo.actualizarEstadoC(clasi.getMarca(), clasi.getModelo(), clasi.getEstado());
-                            modcla.fireTableDataChanged();
-                            pri.getTclasico().repaint();
+                            actualizarTablaClasicos();
                             encontrado = true;
                             break;
                         }
@@ -260,8 +288,7 @@ public class Controller implements ActionListener {
                             // Cambiar el estado del vehículo todo a "En uso"
                             terr.setEstado("En uso");
                             mo.actualizarEstadoT(terr.getMarca(), terr.getModelo(), terr.getEstado());
-                            modterre.fireTableDataChanged();
-                            pri.getTerreneitor().repaint();
+                            actualizarTablaTodoterrenos();
                             encontrado = true;
                             break;
                         }
@@ -282,8 +309,7 @@ public class Controller implements ActionListener {
                             // Cambiar el estado del vehículo familiar a "En uso"
                             fam.setEstado("En uso");
                             mo.actualizarEstadoF(fam.getMarca(), fam.getModelo(), fam.getEstado());
-                            modfami.fireTableDataChanged();
-                            pri.getTfamiliar().repaint();
+                            actualizarTablaFamiliares();
                             encontrado = true;
                             break;
                         }
