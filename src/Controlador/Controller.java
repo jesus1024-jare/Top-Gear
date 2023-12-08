@@ -97,11 +97,22 @@ public class Controller implements ActionListener {
     DefaultTableModel modelo;
 
     public void run() {
-        pri.setVisible(true);
-        pri.setLocationRelativeTo(null);
-        botonTransparente();
-        actualizarTablaDesdeBaseDeDatos();
-        mo.getConnection();
+        // Hilo para cargar la vista
+        Thread hiloVista = new Thread(() -> {
+            pri.setVisible(true);
+            pri.setLocationRelativeTo(null);
+            botonTransparente();
+            mo.getConnection();
+        });
+
+        // Hilo para cargar los datos en la tabla
+        Thread hiloDatos = new Thread(() -> {
+            actualizarTablaDesdeBaseDeDatos();
+        });
+
+        // Iniciar ambos hilos
+        hiloVista.start();
+        hiloDatos.start();
     }
 
     public void llenar(Cliente p) {
