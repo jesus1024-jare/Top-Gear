@@ -112,7 +112,18 @@ public class Controller implements ActionListener {
 
         // Iniciar ambos hilos
         hiloVista.start();
+        try {
+            hiloVista.join(); // Esperar a que el hiloVista termine
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         hiloDatos.start();
+        try {
+            hiloDatos.join(); // Esperar a que el hiloDatos termine
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void llenar(Cliente p) {
